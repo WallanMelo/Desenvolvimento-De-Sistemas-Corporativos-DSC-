@@ -18,10 +18,10 @@ O sistema também possui 3 níveis de acesso para usuários, que são funcionár
 * Cadastra clientes.
 * Registra aluguéis e devoluções.
 * Acompanha o status dos veículos (Se estão em conserto, alugados, disponíveis para alugar, etc).
-* Pode adicionar observações, como: veículo com defeito no câmbio.
+* Edita quais veículos estão em conserto.
 
 ### Mecânico: 
-* Edita quais veículos estão em conserto.
+* Pode adicionar observações, como: veículo com defeito no câmbio.
 * Edita qual é o problema do veículo.
 * Edita o valor do conserto, junto ao prazo.
 	
