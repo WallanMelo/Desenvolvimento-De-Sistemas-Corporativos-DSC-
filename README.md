@@ -25,8 +25,6 @@ A disciplina de Desenvolvimento de Sistemas Corporativos (DSC) visa capacitar os
 | 1 - Clebson Santos       | [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ClebTech)|
 | 2 - Wallan De Melo Lima  | [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/WallanMelo)|
 
-## Installation
-
 
 
 
