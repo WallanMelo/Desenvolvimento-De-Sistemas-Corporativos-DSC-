@@ -5,3 +5,20 @@ Documentar é essencial para facilitar a compreensão do funcionamento do sistem
 
 # Estrutura Geral da Documentação
 A documentação pode variar de acordo com o tipo e a complexidade do projeto, mas geralmente inclui os seguintes tópicos:
+
+## 1. Introdução
+* Visão geral do projeto
+
+* Objetivo principal
+
+* Tecnologias utilizadas
+
+## 2. Instalação
+* Pré-requisitos
+
+* Instruções e passo a passo para clonar e rodar o projeto localmente
+
+## 3. Uso
+* Como utilizar o sistema
+
+* Exemplos de comandos ou funcionalidades principais
