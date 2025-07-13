@@ -39,13 +39,13 @@ Representa o fluxo de atividades dentro do sistema, mostrando como os usuários 
 Reúne todas as informações coletadas junto aos usuários e stakeholders sobre o que o sistema deve fazer. Essa etapa é essencial para garantir que o software atenda às necessidades reais do negócio.
 Nesta seção, os requisitos são divididos em três categorias principais:
 
-#### Requisitos Funcionais
+#### * Requisitos Funcionais
 São as funcionalidades que o sistema deve oferecer. Eles descrevem o comportamento do sistema diante das ações dos usuários, como "cadastrar cliente", "registrar aluguel", "emitir relatório financeiro", etc.
 
-#### Requisitos Não Funcionais
+#### * Requisitos Não Funcionais
 Estão relacionados à qualidade do sistema e restrições técnicas, como desempenho, segurança, usabilidade e tempo de resposta. Exemplos: "O sistema deve suportar múltiplos acessos simultâneos", "A senha do usuário deve ser criptografada".
 
-#### Requisitos Complementares
+#### * Requisitos Complementares
 São regras adicionais que não se enquadram diretamente nas categorias anteriores, mas que impactam o projeto. Podem incluir integrações futuras, preferências do cliente, premissas do negócio ou requisitos legais e regulatórios.
 
 ### Detalhamento dos Requisitos
