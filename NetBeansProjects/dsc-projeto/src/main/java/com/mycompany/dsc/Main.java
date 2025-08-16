@@ -8,7 +8,16 @@ package com.mycompany.dsc;
  *
  * @author clebson
  */
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
+import com.mycompany.dsc.interfaces.login.TelaLogin;
 
 public class Main extends JFrame {
 
@@ -18,7 +27,7 @@ public class Main extends JFrame {
     private JComboBox<String> comboNivelAcesso;
     private JButton botaoEntrar;
 
-    public DscProjeto() {
+    public Main() {
         setTitle("Login - Sistema AVJ");
         setSize(400, 300);
         setLocationRelativeTo(null); // Centraliza a janela
@@ -81,7 +90,7 @@ public class Main extends JFrame {
     // Método main para testar a tela
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            Main login = new TelaLogin();
+            TelaLogin login = new TelaLogin();
             login.setVisible(true);
         });
     }
