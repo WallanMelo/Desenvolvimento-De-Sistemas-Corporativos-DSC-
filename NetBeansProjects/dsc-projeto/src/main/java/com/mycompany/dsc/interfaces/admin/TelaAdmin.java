@@ -1,5 +1,6 @@
 package com.mycompany.dsc.interfaces.admin;
-
-public class TelaAdmin {
+import javax.swing.JFrame;
+public class TelaAdmin extends JFrame {
+    
     
 }
