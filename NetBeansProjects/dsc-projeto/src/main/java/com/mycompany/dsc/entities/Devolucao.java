@@ -1,8 +1,18 @@
 package com.mycompany.dsc.entities;
 
-import com.mycompany.dsc.dataAccess.DevolucaoBD;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 import org.springframework.beans.BeanUtils;
-import jakarta.persistence.*;
+
+import com.mycompany.dsc.dataAccess.DevolucaoBD;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "devolucao")
@@ -13,7 +23,7 @@ public class Devolucao {
     protected int idDevolucao;
     
     @Column(name = "data_devolucao", nullable = false)
-    protected String dataDevolucao;
+    protected LocalDate dataDevolucao;
     
     @Column(name = "observacoes", nullable = true, length = 255)
     protected String observacoes;
@@ -22,7 +32,7 @@ public class Devolucao {
     protected Double valorMulta;//No caso de atrasar a devolução
 //========== CONTRUTORES ================================================================
     public Devolucao() {}
-    public Devolucao(int idDevolucao, String dataDevolucao, String observacoes, Double valorMulta) {
+    public Devolucao(int idDevolucao, LocalDate dataDevolucao, String observacoes, Double valorMulta) {
         setIdDevolucao(idDevolucao);
         setDataDevolucao(dataDevolucao);
         setObservacoes(observacoes);
@@ -31,14 +41,41 @@ public class Devolucao {
     public Devolucao(DevolucaoBD devolucaoBD) {
         BeanUtils.copyProperties(devolucaoBD, this);
     }
+
+//========== METODOS ================================================================
+    // Verifica se houve atraso na devolução se tiver retorna true
+    public boolean houveAtraso(LocalDate dataPrevista) {
+        return dataDevolucao.isAfter(dataPrevista);
+    }
+    
+    // Calcula a multa baseada no atraso, FORMULA = dias de atraso * valor por dia()
+    public Double calcularMulta(LocalDate dataPrevista) {
+        double valorPorDia = 25.0; //Valor Fixo por dia de atraso na devolução
+        if (houveAtraso(dataPrevista)) {
+            long diasAtraso = ChronoUnit.DAYS.between(dataPrevista, dataDevolucao);
+            this.valorMulta = diasAtraso * valorPorDia;
+            return this.valorMulta;
+        } else 
+            return  this.valorMulta = 0.0;
+    }
+    
+    //Adiciona observações sobre o veiculo devolvido
+    public String adicionarObservacao(String obs) {
+        if (this.observacoes == null || this.observacoes.isBlank()) {
+            this.observacoes = obs;
+        } else {
+            this.observacoes = String.format("%s | %s", this.observacoes, obs);
+        }
+        return this.observacoes;
+    }
 //========== GETTERS AND SETTERS ================================================================
     //ID
     public void setIdDevolucao(int idDevolucao) { this.idDevolucao = idDevolucao; }
     public int getIdDevolucao() { return this.idDevolucao; }
 
     //Data Devolução
-    public void setDataDevolucao(String dataDevolucao) { this.dataDevolucao = dataDevolucao; }
-    public String getDataDevolucao() { return this.dataDevolucao; }
+    public void setDataDevolucao(LocalDate dataDevolucao) { this.dataDevolucao = dataDevolucao; }
+    public LocalDate getDataDevolucao() { return this.dataDevolucao; }
     
     //Obs
     public void setObservacoes(String observacoes) { this.observacoes = observacoes; }

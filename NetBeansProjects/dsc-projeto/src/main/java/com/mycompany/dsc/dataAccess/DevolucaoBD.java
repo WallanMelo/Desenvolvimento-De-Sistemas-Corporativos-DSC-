@@ -1,16 +1,19 @@
 package com.mycompany.dsc.dataAccess;
-import com.mycompany.dsc.entities.Devolucao;
+import java.time.LocalDate;
+
 import org.springframework.beans.BeanUtils;
+
+import com.mycompany.dsc.entities.Devolucao;
 
 public class DevolucaoBD {
 //========== ATRIBUTOS ================================================================
     protected int idDevolucao;
-    protected String dataDevolucao;
+    protected LocalDate dataDevolucao;
     protected String observacoes;
     protected Double valorMulta;//No caso de atrasar a devolução
 //========== CONTRUTORES ================================================================
     public DevolucaoBD() {}
-    public DevolucaoBD(int idDevolucao, String dataDevolucao, String observacoes, Double valorMulta) {
+    public DevolucaoBD(int idDevolucao, LocalDate dataDevolucao, String observacoes, Double valorMulta) {
         setIdDevolucao(idDevolucao);
         setDataDevolucao(dataDevolucao);
         setObservacoes(observacoes);
@@ -25,8 +28,8 @@ public class DevolucaoBD {
     public int getIdDevolucao() { return this.idDevolucao; }
 
     //Data Devolução
-    public void setDataDevolucao(String dataDevolucao) { this.dataDevolucao = dataDevolucao; }
-    public String getDataDevolucao() { return this.dataDevolucao; }
+    public void setDataDevolucao(LocalDate dataDevolucao) { this.dataDevolucao = dataDevolucao; }
+    public LocalDate getDataDevolucao() { return this.dataDevolucao; }
     
     //Obs
     public void setObservacoes(String observacoes) { this.observacoes = observacoes; }

@@ -1,5 +1,5 @@
 package com.mycompany.dsc.controller;
 
-public class controller {
+public class VeiculoController {
     
 }

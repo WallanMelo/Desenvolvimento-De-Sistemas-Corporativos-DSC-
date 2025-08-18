@@ -1,4 +1,6 @@
 package com.mycompany.dsc.entities;
+import java.time.LocalDate;
+
 import org.springframework.beans.BeanUtils;
 
 import com.mycompany.dsc.dataAccess.AluguelBD;
@@ -30,16 +32,16 @@ public class Aluguel {
     protected Veiculo veiculo;// FK Chave estrangeira
     
     @Column (nullable = false)  
-    protected String dataInicio;
+    protected LocalDate dataInicio;
     @Column (nullable = false)
-    protected String dataFim;
+    protected LocalDate dataFim;
     @Column (nullable = false, precision = 10, scale = 2)
     protected Double valorTotal;
     @Column (nullable = false)
     protected String status; //Ativo - Finalizado - Cancelado
 //=========== CONSTRUTORES ============================
     public Aluguel() {}
-    public Aluguel(int idAluguel, int idCliente, int idVeiculo, String dataInicio, String dataFim, Double valorTotal, String status) {
+    public Aluguel(int idAluguel, int idCliente, int idVeiculo, LocalDate dataInicio, LocalDate dataFim, Double valorTotal, String status) {
         setIdAluguel(idAluguel);
         setCliente(cliente);
         setVeiculo(veiculo);
@@ -50,7 +52,7 @@ public class Aluguel {
     }   
     public Aluguel(AluguelBD aluguelBD) {
         BeanUtils.copyProperties(aluguelBD, this);
-    }
+    }    
 //=========== GETTERS E SETTERS ============================
     //ID Aluguel
     public void setIdAluguel(int idAluguel){this.idAluguel = idAluguel;}
@@ -62,11 +64,11 @@ public class Aluguel {
     public void setVeiculo(Veiculo veiculo){this.veiculo = veiculo;}
     public Veiculo getVeiculo(){return this.veiculo; }
     //Data Inicio
-    public void setDataInicio(String dataInicio){this.dataInicio = dataInicio;}
-    public String getDataInicio(){return this.dataInicio; }
+    public void setDataInicio(LocalDate dataInicio){this.dataInicio = dataInicio;}
+    public LocalDate getDataInicio(){return this.dataInicio; }
     //Data Fim
-    public void setDataFim(String dataFim){this.dataFim = dataFim;}
-    public String getDataFim(){return this.dataFim; }
+    public void setDataFim(LocalDate dataFim){this.dataFim = dataFim;}
+    public LocalDate getDataFim(){return this.dataFim; }
     //Valor Total
     public void setValorTotal(Double valorTotal){this.valorTotal = valorTotal;}
     public Double getValorTotal(){return this.valorTotal; }
