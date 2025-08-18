@@ -1,8 +1,15 @@
 package com.mycompany.dsc.entities;
 
-import jakarta.persistence.*;
 import org.springframework.beans.BeanUtils;
+
 import com.mycompany.dsc.dataAccess.UserBD;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 @Entity
 @Table(name = "users")
 public class Users {

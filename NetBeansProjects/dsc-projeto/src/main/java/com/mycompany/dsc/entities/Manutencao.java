@@ -1,17 +1,36 @@
-package com.mycompany.dsc.dataAccess;
-import com.mycompany.dsc.entities.Manutencao;
+package com.mycompany.dsc.entities;
+import com.mycompany.dsc.dataAccess.ManutencaoBD;
+
+import jakarta.persistence.*;
+import jakarta.persistence.Table;
+
 import org.springframework.beans.BeanUtils;
-public class ManutencaoBD {
+
+@Entity
+@Table(name="manutencao")
+public class Manutencao {
 //========== ATRIBUTOS ================================================================
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected int idManutencao;
+    
+    @Column (name = "descricao", nullable = false, length = 255)
     protected String descricao;
+    
+    @Column (name = "custo", nullable = false)
     protected Double custo;
+
+    @Column (name = "data_inicio", nullable = false)
     protected String dataInicio;//Inicio da Manutenção 
+
+    @Column (name = "data_fim", nullable = true)
     protected String dataFim;//Fim da Manutenção 
+
+    @Column (name = "status", nullable = false, length = 50)
     protected String status;//Andamento - Concluída - Cancelada
 //========== CONTRUTORES ================================================================
-    public ManutencaoBD() {}
-    public ManutencaoBD(int idManutencao, String descricao, Double custo, String dataInicio, String dataFim, String status) {
+    public Manutencao() {}
+    public Manutencao(int idManutencao, String descricao, Double custo, String dataInicio, String dataFim, String status) {
         setIdManutencao(idManutencao);
         setDescricao(descricao);
         setCusto(custo);
@@ -19,8 +38,8 @@ public class ManutencaoBD {
         setDataFim(dataFim);
         setStatus(status);
     }
-    public ManutencaoBD(Manutencao manutencaoEntitie) {
-        BeanUtils.copyProperties(manutencaoEntitie, this);
+    public Manutencao(ManutencaoBD manutencaoBD) {
+        BeanUtils.copyProperties(manutencaoBD, this);
     }
 //========== GETTERS AND SETTERS ================================================================
     //ID
@@ -45,5 +64,5 @@ public class ManutencaoBD {
 
     //Status
     public void setStatus(String status) { this.status = status; }
-    public String getStatus() { return this.status; }    
+    public String getStatus() { return this.status; }
 }

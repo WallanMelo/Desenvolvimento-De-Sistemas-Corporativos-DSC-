@@ -1,128 +1,175 @@
 package com.mycompany.dsc.interfaces.login;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
+import com.mycompany.dsc.interfaces.administrador.TelaAdministrador;
+import com.mycompany.dsc.interfaces.atendente.TelaAtendente;
+import com.mycompany.dsc.interfaces.mecanico.TelaMecanico;
+import javax.swing.*;
+import java.awt.*;
+import java.sql.*;
 
 public class TelaLogin extends JFrame {
-    private final JTextField campoUsuario = new JTextField();
-    private final JPasswordField campoSenha = new JPasswordField();
-    private final JComboBox<String> comboNivelAcesso = new JComboBox<>(new String[]{"Administrador", "Atendente", "Mecânico"});
-    private final JButton botaoEntrar   = new JButton("ENTRAR") ;
-    private final JLabel linkEsqueciSenha = new JLabel("Esqueci minha senha");
+    private JTextField campoUsuario;
+    private JPasswordField campoSenha;
+    private JComboBox<String> comboNivelAcesso;
+    private JButton botaoEntrar;
+    private JLabel linkEsqueciSenha;
+
+    // Configurações do banco de dados
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/aluguel_veiculos?useSSL=false&serverTimezone=UTC";
+    private static final String DB_USER = "root";
+    private static final String DB_PASSWORD = "12345";
+
     public TelaLogin() {
         setTitle("Login - Sistema AVJ");
-        setSize(400, 500); 
+        setSize(400, 450);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
 
-        carregarLogo();
-        inicializarComponentes();
-        configurarEventos();
-    }
+        JLabel labelAVJ = new JLabel("AVJ");
+        labelAVJ.setFont(new Font("Arial", Font.BOLD, 20));
+        labelAVJ.setHorizontalAlignment(SwingConstants.CENTER);
+        labelAVJ.setBounds(175, 80, 50, 25);
+        add(labelAVJ);
 
-    private void carregarLogo() {
-        try {
-            // Caminho para a imagem do logo
-            ImageIcon originalIcon = new ImageIcon(
-                getClass().getResource("/com/mycompany/dsc/images/AVJ-logo.png")
-            );
-            
-            Image scaledImage = originalIcon.getImage().getScaledInstance(200, 100, Image.SCALE_SMOOTH);
-            JLabel labelLogo = new JLabel(new ImageIcon(scaledImage));
-            labelLogo.setHorizontalAlignment(SwingConstants.CENTER);
-            labelLogo.setBounds(100, 20, 200, 100);
-            add(labelLogo);
-        } catch (Exception e) {
-            JLabel labelLogo = new JLabel("AVJ");
-            labelLogo.setFont(new Font("Arial", Font.BOLD, 36));
-            labelLogo.setForeground(new Color(0, 76, 153));
-            labelLogo.setHorizontalAlignment(SwingConstants.CENTER);
-            labelLogo.setBounds(0, 30, 400, 50);
-            add(labelLogo);
-        }
-    }
-
-    private void inicializarComponentes() {
-        // Componentes da interface
         JLabel labelUsuario = new JLabel("Login (email ou CPF):");
         labelUsuario.setFont(new Font("Arial", Font.BOLD, 14));
-        labelUsuario.setBounds(50, 150, 200, 20);
+        labelUsuario.setBounds(50, 120, 200, 20);
         add(labelUsuario);
 
-        campoUsuario.setBounds(50, 170, 300, 30);
+        campoUsuario = new JTextField();
+        campoUsuario.setBounds(50, 140, 300, 30);
         add(campoUsuario);
 
         JLabel labelSenha = new JLabel("Senha:");
         labelSenha.setFont(new Font("Arial", Font.BOLD, 14));
-        labelSenha.setBounds(50, 210, 100, 20);
+        labelSenha.setBounds(50, 180, 100, 20);
         add(labelSenha);
 
-        campoSenha.setBounds(50, 230, 300, 30);
+        campoSenha = new JPasswordField();
+        campoSenha.setBounds(50, 200, 300, 30);
         add(campoSenha);
 
         JLabel labelNivel = new JLabel("Nível de Acesso:");
         labelNivel.setFont(new Font("Arial", Font.BOLD, 14));
-        labelNivel.setBounds(50, 270, 200, 20);
+        labelNivel.setBounds(50, 240, 200, 20);
         add(labelNivel);
 
-        comboNivelAcesso.setBounds(50, 290, 300, 30);
+        comboNivelAcesso = new JComboBox<>(new String[]{
+            "Administrador", "Atendente", "Mecânico"
+        });
+        comboNivelAcesso.setBounds(50, 260, 300, 30);
         add(comboNivelAcesso);
 
+        botaoEntrar = new JButton("ENTRAR");
         botaoEntrar.setFont(new Font("Arial", Font.BOLD, 14));
-        botaoEntrar.setBackground(new Color(0, 76, 153));
+        botaoEntrar.setBackground(new Color(70, 130, 180));
         botaoEntrar.setForeground(Color.WHITE);
-        botaoEntrar.setBounds(150, 340, 100, 35);
+        botaoEntrar.setBounds(150, 310, 100, 35);
+        botaoEntrar.addActionListener(e -> fazerLogin());
         add(botaoEntrar);
 
+        linkEsqueciSenha = new JLabel("Esqueci minha senha");
         linkEsqueciSenha.setFont(new Font("Arial", Font.PLAIN, 12));
-        linkEsqueciSenha.setForeground(Color.BLUE.darker());
-        linkEsqueciSenha.setBounds(140, 390, 150, 20);
+        linkEsqueciSenha.setForeground(Color.WHITE);
+        linkEsqueciSenha.setBounds(140, 355, 150, 20);
         linkEsqueciSenha.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        linkEsqueciSenha.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JOptionPane.showMessageDialog(null,
+                        "Entre em contato com o administrador do sistema.",
+                        "Recuperação de Senha",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
         add(linkEsqueciSenha);
     }
 
-    private void configurarEventos() {
-        // Ação de login
-        botaoEntrar.addActionListener(e -> fazerLogin());
-        
-        // Ação no link de recuperar senha
-        linkEsqueciSenha.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                JOptionPane.showMessageDialog(null, 
-                    "Função de recuperação de senha ainda não implementada.");
+    private void fazerLogin() {
+        String usuario = campoUsuario.getText().trim();
+        String senha = new String(campoSenha.getPassword());
+        String nivel = (String) comboNivelAcesso.getSelectedItem();
+
+        if (usuario.isEmpty() || senha.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Preencha todos os campos!",
+                    "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try (Connection conexao = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            String sql = "SELECT * FROM usuario WHERE login = ? AND senha = ? AND nivel = ?";
+
+            try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+                stmt.setString(1, usuario);
+                stmt.setString(2, senha);
+                stmt.setString(3, nivel);
+
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        String nivelBanco = rs.getString("nivel");
+                        loginBemSucedido(usuario, nivelBanco);
+                    } else {
+                        JOptionPane.showMessageDialog(this,
+                                "Usuário, senha ou nível de acesso incorretos!",
+                                "Erro de Login", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
             }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Erro ao conectar ao banco de dados!\n" + ex.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        }
+    }
+
+    private void loginBemSucedido(String usuario, String nivel) {
+        JOptionPane.showMessageDialog(this,
+                "Bem-vindo, " + nivel + "!\nLogin realizado com sucesso.",
+                "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+        SwingUtilities.invokeLater(() -> {
+            switch (nivel) {
+                case "Administrador":
+                    new TelaAdministrador(usuario).setVisible(true);
+                    break;
+                case "Atendente":
+                    new TelaAtendente(usuario).setVisible(true);
+                    break;
+                case "Mecânico":
+                    new TelaMecanico(usuario).setVisible(true);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(this,
+                            "Nível de acesso desconhecido: " + nivel,
+                            "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+            }
+            dispose(); // fecha a tela de login
         });
     }
 
-    private void fazerLogin() {
-        String usuario = campoUsuario.getText();
-        String senha = new String(campoSenha.getPassword());
-        String nivel = (String) comboNivelAcesso.getSelectedItem();
-        
-        if (usuario.equals("admin") && senha.equals("123") && nivel.equals("Administrador")) {
-            JOptionPane.showMessageDialog(this, "Login bem-sucedido como Administrador!");
-            // Aqui você pode abrir a próxima tela
-        } else {
-            JOptionPane.showMessageDialog(this, "Usuário ou senha incorretos.");
-        }
-    }
     public static void main(String[] args) {
+        // Carregar driver JDBC
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("Driver JDBC carregado com sucesso!");
+        } catch (ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null,
+                    "Driver JDBC não encontrado!\n" + e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Look and Feel deve vir antes da criação de janelas
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Iniciar a aplicação
         SwingUtilities.invokeLater(() -> {
             TelaLogin login = new TelaLogin();
             login.setVisible(true);
