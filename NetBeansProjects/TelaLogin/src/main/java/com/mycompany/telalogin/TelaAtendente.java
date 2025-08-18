@@ -77,18 +77,19 @@ public class TelaAtendente extends JFrame {
             botao.addActionListener(e -> {
                 switch (opcao) {
                     case "Cadastrar Cliente":
-                        trocarConteudo(criarTela("Cadastrar Cliente"));
+                        trocarConteudo(new TelaCadastrarCliente());
                         break;
                     case "Registrar Aluguel":
-                        trocarConteudo(criarTela("Registrar Aluguel"));
+                        trocarConteudo(new TelaRegistrarAluguel());
                         break;
                     case "Registrar Devolução":
-                        trocarConteudo(criarTela("Registrar Devolução"));
+                        trocarConteudo(new TelaRegistrarDevolucao());
                         break;
                     case "Status Da Frota":
-                        trocarConteudo(criarTela("Status Da Frota"));
+                        trocarConteudo(new TelaStatusFrota());
                         break;
                 }
+
             });
 
             painelMenu.add(botao);
