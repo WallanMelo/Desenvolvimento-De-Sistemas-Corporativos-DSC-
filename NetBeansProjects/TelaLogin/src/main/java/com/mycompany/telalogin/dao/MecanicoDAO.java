@@ -1,10 +1,10 @@
-package com.mycompany.telalogin;
+package com.mycompany.telalogin.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class MecanicoBD {
+public class MecanicoDAO {
 
     //Busca no BD a qtd de manutenções pendentes na table    
     public static int getQuantidadeManutencoesPendentes() {

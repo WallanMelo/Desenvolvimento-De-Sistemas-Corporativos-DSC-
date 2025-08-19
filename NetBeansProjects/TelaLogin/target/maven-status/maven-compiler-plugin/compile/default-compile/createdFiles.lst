@@ -1,6 +1,13 @@
+<<<<<<< HEAD
 com/mycompany/telalogin/MecanicoBD.class
 com/mycompany/telalogin/TelaMecanico.class
 com/mycompany/telalogin/TelaManutencoesPendentes.class
+=======
+com/mycompany/telalogin/TelaGerenciarClientes$1.class
+com/mycompany/telalogin/TelaMecanico.class
+com/mycompany/telalogin/dao/VeiculoDAO.class
+com/mycompany/telalogin/TelaGerenciarClientes.class
+>>>>>>> c32ea1845c86003292fd247550175f3589263ca2
 com/mycompany/telalogin/Conexao.class
 com/mycompany/telalogin/TelaStatusFrota.class
 com/mycompany/telalogin/TelaAtendente.class
@@ -13,7 +20,10 @@ com/mycompany/telalogin/TelaAdministrador.class
 com/mycompany/telalogin/TelaRelatorios.class
 com/mycompany/telalogin/TelaSolicitarPecas.class
 com/mycompany/telalogin/TelaStatusFrota$1.class
+com/mycompany/telalogin/model/Cliente.class
+com/mycompany/telalogin/dao/AluguelDAO.class
 com/mycompany/telalogin/TelaGestao.class
+com/mycompany/telalogin/dao/ClienteDAO.class
 com/mycompany/telalogin/TelaRegistrarDevolucao.class
 com/mycompany/telalogin/TelaRegistrarAluguel.class
 com/mycompany/telalogin/TelaHistoricoManutencoes.class

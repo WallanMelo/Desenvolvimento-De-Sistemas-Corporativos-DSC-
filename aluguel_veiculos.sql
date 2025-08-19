@@ -1,58 +1,83 @@
 CREATE DATABASE aluguel_veiculos CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
 USE aluguel_veiculos;
 
 CREATE TABLE usuario (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    login VARCHAR(100) NOT NULL UNIQUE,
+    nome VARCHAR(100) NOT NULL,
+    cpf VARCHAR(14) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    telefone VARCHAR(20),
+    data_nascimento DATE,
+    login VARCHAR(100) NOT NULL UNIQUE, -- pode ser email ou CPF
     senha VARCHAR(100) NOT NULL,
-    nivel ENUM('Administrador', 'Atendente', 'Mecânico') NOT NULL
+    nivel ENUM('Administrador', 'Atendente', 'Mecânico') NOT NULL,
+    salario DECIMAL(10,2) DEFAULT 0.00
 );
 
-INSERT INTO usuario (login, senha, nivel) VALUES 
-('admin', '123', 'Administrador'),
-('cleb', '1234', 'Atendente'),
-('wallan', '4321', 'Mecânico');
+-- USUARIOS (FUNCIONARIOS) PADRÕES
+INSERT INTO usuario (nome, cpf, email, telefone, data_nascimento, login, senha, nivel, salario) VALUES
+('Administrador Geral', '000.000.000-00', 'admin@avj.com', '(38) 99999-0000', '1980-01-01', 'admin', '123', 'Administrador', 5000.00),
+('Clebson Atendente', '111.111.111-11', 'cleb@avj.com', '(38) 98888-1111', '1995-05-10', 'cleb', '1234', 'Atendente', 2500.00),
+('Wallan Mecânico', '222.222.222-22', 'wallan@avj.com', '(38) 97777-2222', '2005-09-20', 'wallan', '4321', 'Mecânico', 3000.00);
 
-CREATE TABLE IF NOT EXISTS cliente (
+CREATE TABLE cliente (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     cpf VARCHAR(14) NOT NULL UNIQUE,
+    cnh VARCHAR(20) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL,
     telefone VARCHAR(20),
+    data_nascimento DATE,
     endereco VARCHAR(200)
 );
 
-CREATE TABLE IF NOT EXISTS veiculo (
+
+INSERT INTO cliente (nome, cpf, cnh, email, telefone, data_nascimento, endereco) VALUES
+('Adriano Antunes','321.111.987-00','12345678900','adriano@ifnmg.com','(38) 95555-3333','1992-07-15','Rua das Redes, 120'),
+('Paulo Veloso','147.222.369-11','98765432100','paulo@ifnmg.com','(38) 94444-2222','1988-02-28','Av. Orientada a Objetos, 800'),
+('Cleiane Oliveira','147.333.369-11','55555555555','cleiane@ifnmg.com','(38) 93333-1111','1995-11-10','Av. Banco de Dados, 777');
+
+CREATE TABLE veiculo (
     id INT AUTO_INCREMENT PRIMARY KEY,
     modelo VARCHAR(100) NOT NULL,
+    fabricante VARCHAR(100),
+    tipo VARCHAR(50),
+    ano YEAR,
     placa VARCHAR(10) NOT NULL UNIQUE,
+    estado_conservacao VARCHAR(100),
+    cor VARCHAR(50),
+    caracteristicas TEXT,
     status ENUM('Disponível','Alugado','Manutenção') DEFAULT 'Disponível'
 );
 
-CREATE TABLE IF NOT EXISTS aluguel (
+INSERT INTO veiculo (modelo, fabricante, tipo, ano, placa, estado_conservacao, cor, caracteristicas, status) VALUES
+('Gol 1.0', 'Volkswagen', 'Hatch', 2015, 'ABC-1234', 'Bom', 'Prata', 'Econômico', 'Disponível'),
+('Uno Endemoniado', 'Fiat', 'Hatch', 2010, 'SLK-1234', 'Regular', 'Branco', 'Som potente', 'Disponível'),
+('Celta 1.0', 'Chevrolet', 'Hatch', 2012, 'ZZZ-1234', 'Bom', 'Preto', 'Completo', 'Disponível'),
+('Onix 1.4', 'Chevrolet', 'Hatch', 2018, 'DEF-5678', 'Ótimo', 'Vermelho', 'Ar e direção', 'Disponível');
+
+-- =========================
+-- TABELA DE ALUGUEIS
+-- =========================
+CREATE TABLE aluguel (
     id INT AUTO_INCREMENT PRIMARY KEY,
     cliente_id INT NOT NULL,
     veiculo_id INT NOT NULL,
     data_inicio DATE NOT NULL,
     data_fim DATE,
+    prazo_devolucao DATE NOT NULL,
+    detalhes TEXT,
+    valor DECIMAL(10,2) DEFAULT 0.00,
+    multa DECIMAL(10,2) DEFAULT 0.00,
     devolvido BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (cliente_id) REFERENCES cliente(id),
     FOREIGN KEY (veiculo_id) REFERENCES veiculo(id)
 );
 
-INSERT INTO cliente (nome, cpf, telefone, endereco) VALUES
-('Adriano Antunes','321.111.987-00','(38) 95555-3333','Rua das Redes, 120'),
-('Paulo Veloso','147.222.369-11','(38) 94444-2222','Av. Orientada a Objetos, 800'),
-('Cleiane Oliveira','147.333.369-11','(38) 94444-2222','Av. Banco de Dados, 800');
 
-INSERT INTO veiculo (modelo, placa, status) VALUES
-('Gol 1.0','ABC-1234','Disponível'),
-('Uno Endemoniado','SLK-1234','Disponível'),
-('Celta 1.0','ZZZ-1234','Disponível'),
-('Onix 1.4','DEF-5678','Disponível');
-
-
-
+-- =========================
+-- TABELA DE MANUTENÇÕES E INSERT INTO
+-- =========================
 CREATE TABLE IF NOT EXISTS manutencoes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     veiculo_id INT NOT NULL,
@@ -60,21 +85,26 @@ CREATE TABLE IF NOT EXISTS manutencoes (
     descricao VARCHAR(255) NOT NULL,
     data_solicitacao DATE NOT NULL,
     data_conclusao DATE,
-    status ENUM('PENDENTE', 'EM_ANDAMENTO', 'FINALIZADA') DEFAULT 'PENDENTE'
+    status ENUM('Pendente', 'Em_Andamento', 'Finalizada') DEFAULT 'Pendente',
+    FOREIGN KEY (veiculo_id) REFERENCES veiculo(id),
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id)
 );
 
-insert into manutencoes () VALUES
-('Problema na caixa de marcha, e farol de neblina sem funcionar o lado esquerdo', 2025/07/10, 2025/08/12, 'FINALIZADA')
+insert into manutencoes (descricao,data_solicitacao,data_conclusao,status) VALUES
+('Problema na caixa de marcha, e farol de neblina sem funcionar o lado esquerdo', 2025/07/10, 2025/08/12, 'Finalizada');
 
-
+-- =========================
+-- TABELA DE SOLICITAÇÕES DE PEÇAS E INSERT INTO
+-- =========================
 CREATE TABLE IF NOT EXISTS solicitacoes_pecas(
     id INT auto_increment primary key,
     usuario_id INT NOT NULL,
     nome_peca VARCHAR(100) NOT NULL,
     quantidade INT NOT NULL,
     data_solicitacao DATE NOT NULL,
-    status ENUM('EM_ANALISE', 'APROVADA', 'EM_ANDAMENTO') DEFAULT 'EM_ANALISE'
+    status ENUM('Em_Analise', 'Aprovada', 'Em_Andamento') DEFAULT 'Em_Analise',
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id)
 );
 
-insert into solicitacoes_pecas() VALUES
+insert into solicitacoes_pecas(nome_peca,quantidade,data_solicitacao,status) VALUES
 ('farol de neblina da luz amarela', '1', 2025/07/11,'APROVADA');

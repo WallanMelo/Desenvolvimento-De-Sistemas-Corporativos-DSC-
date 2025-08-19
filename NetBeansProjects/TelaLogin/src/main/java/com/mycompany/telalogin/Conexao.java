@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+//Conectando ao base de dados
 public class Conexao {
     private static final String URL = "jdbc:mysql://localhost:3306/aluguel_veiculos?useSSL=false&serverTimezone=UTC";
     private static final String USER = "root";
