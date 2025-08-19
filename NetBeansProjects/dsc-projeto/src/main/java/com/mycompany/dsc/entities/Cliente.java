@@ -1,4 +1,6 @@
 package com.mycompany.dsc.entities;
+import java.time.LocalDate;
+
 import org.springframework.beans.BeanUtils;
 
 import com.mycompany.dsc.dataAccess.ClienteBD;
@@ -25,25 +27,25 @@ public class Cliente {
     protected String cpf;
 
     @Column (nullable = false)
-    protected String dataNascimento;
+    protected LocalDate dataNascimento;
 
     @Column (nullable = false, unique = true)
     protected String cnh;
 
     @Column (nullable = false)
-    protected String contato;//Telefone ou Celular ou Email
+    protected String telefone;//Telefone ou Celular ou Email
     
     @Column (nullable = false)
     protected String endereco;//Cidade, Estado, Bairro, Rua, Numero, Complemento 
 //========== CONSTRUTORES ================================================================
     public Cliente() {}
-    public Cliente(int idCliente, String nome, String cpf, String dataNascimento, String cnh, String contato, String endereco) {
+    public Cliente(int idCliente, String nome, String cpf, LocalDate dataNascimento, String cnh, String telefone, String endereco) {
         setIdCliente(idCliente);
         setNome(nome);
         setCpf(cpf);
         setDataNascimento(dataNascimento);
         setCnh(cnh);
-        setContato(contato);
+        setTelefone(telefone);
         setEndereco(endereco);
     }
     public Cliente(ClienteBD clienteBD) {
@@ -63,16 +65,16 @@ public class Cliente {
     public String getCpf() { return this.cpf; }
     
     //Data Nascimento
-    public void setDataNascimento(String dataNascimento) { this.dataNascimento = dataNascimento; }
-    public String getDataNascimento() { return this.dataNascimento; }   
+    public void setDataNascimento(LocalDate dataNascimento) { this.dataNascimento = dataNascimento; }
+    public LocalDate getDataNascimento() { return this.dataNascimento; }   
 
     //CNH
     public void setCnh(String cnh) { this.cnh = cnh; }
     public String getCnh() { return this.cnh; }
 
     //Contato
-    public void setContato(String contato) { this.contato = contato; }
-    public String getContato() { return this.contato; }
+    public void setTelefone(String telefone) { this.telefone = telefone; }
+    public String getTelefone() { return this.telefone; }
 
     //Endereco
     public void setEndereco(String endereco) { this.endereco = endereco; }
