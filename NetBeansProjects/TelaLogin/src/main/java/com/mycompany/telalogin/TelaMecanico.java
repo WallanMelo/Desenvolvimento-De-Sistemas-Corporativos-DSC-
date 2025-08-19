@@ -1,7 +1,18 @@
 package com.mycompany.telalogin;
-
-import javax.swing.*;
-import java.awt.*;
+import com.mycompany.telalogin.dao.MecanicoDAO;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Font;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class TelaMecanico extends JFrame {
     private final JPanel painelConteudo;
@@ -111,12 +122,12 @@ public class TelaMecanico extends JFrame {
         JPanel painel = new JPanel();
         painel.setBackground(new Color(140, 140, 140));
         painel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        int quantidadeManutencoesPendentes = MecanicoBD.getQuantidadeManutencoesPendentes();
-        int solicitacoesEmAnalise = MecanicoBD.getSolicitacoesEmAnalise();
+        int quantidadeManutencoesPendentes = MecanicoDAO.getQuantidadeManutencoesPendentes();
+        int solicitacoesEmAnalise = MecanicoDAO.getSolicitacoesEmAnalise();
         JLabel label = new JLabel("<html><div style='text-align: center; font-size: 10px'>"
                 + "Bem-vindo, Mecânico!<br>"
-                + "Sua dedicação mantém nossa frota em perfeito funcionamento.?<br><br>"
-                + "Hoje, voçê possui" + quantidadeManutencoesPendentes + "manutenções pendendtes e" + solicitacoesEmAnalise +  "solicitações em análise. "
+                + "Sua dedicação mantém nossa frota em perfeito funcionamento.<br><br>"
+                + "Hoje, voçê possui " + quantidadeManutencoesPendentes + " manutenções pendendtes e " + solicitacoesEmAnalise +  " solicitações em análise. "
                 + "</div></html>", SwingConstants.CENTER);
         label.setFont(new Font("Arial", Font.PLAIN, 16));
         label.setForeground(Color.BLACK);

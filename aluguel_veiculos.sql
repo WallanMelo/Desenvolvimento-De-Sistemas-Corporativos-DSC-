@@ -54,7 +54,9 @@ INSERT INTO veiculo (modelo, fabricante, tipo, ano, placa, estado_conservacao, c
 ('Gol 1.0', 'Volkswagen', 'Hatch', 2015, 'ABC-1234', 'Bom', 'Prata', 'Econômico', 'Disponível'),
 ('Uno Endemoniado', 'Fiat', 'Hatch', 2010, 'SLK-1234', 'Regular', 'Branco', 'Som potente', 'Disponível'),
 ('Celta 1.0', 'Chevrolet', 'Hatch', 2012, 'ZZZ-1234', 'Bom', 'Preto', 'Completo', 'Disponível'),
-('Onix 1.4', 'Chevrolet', 'Hatch', 2018, 'DEF-5678', 'Ótimo', 'Vermelho', 'Ar e direção', 'Disponível');
+('Onix 1.4', 'Chevrolet', 'Hatch', 2018, 'DEF-5678', 'Ótimo', 'Vermelho', 'Ar e direção', 'Disponível'),
+('Strada', 'Fiat', 'Hatch', 2020, 'MAL-2538', 'Ótimo', 'Verde', 'Cabine Estendida', 'Manutenção'),
+('Hillux', 'Toyota', 'Hatch', 2022, 'HAK-1586', 'Regular', 'Rosa Pink', '4x4', 'Manutenção');
 
 -- =========================
 -- TABELA DE ALUGUEIS
@@ -90,8 +92,9 @@ CREATE TABLE IF NOT EXISTS manutencoes (
     FOREIGN KEY (usuario_id) REFERENCES usuario(id)
 );
 
-insert into manutencoes (descricao,data_solicitacao,data_conclusao,status) VALUES
-('Problema na caixa de marcha, e farol de neblina sem funcionar o lado esquerdo', 2025/07/10, 2025/08/12, 'Finalizada');
+INSERT INTO manutencoes (veiculo_id, usuario_id, descricao, data_solicitacao, data_conclusao, status) VALUES
+(5, 3, 'Problema na caixa de marcha, e farol de neblina sem funcionar o lado esquerdo', '2025-07-10', NULL, 'Pendente'),
+(6, 3, 'Cinto de Segurança do passageiro quebrado', '2025-07-30', NULL, 'Pendente');
 
 -- =========================
 -- TABELA DE SOLICITAÇÕES DE PEÇAS E INSERT INTO
@@ -106,5 +109,5 @@ CREATE TABLE IF NOT EXISTS solicitacoes_pecas(
     FOREIGN KEY (usuario_id) REFERENCES usuario(id)
 );
 
-insert into solicitacoes_pecas(nome_peca,quantidade,data_solicitacao,status) VALUES
-('farol de neblina da luz amarela', '1', 2025/07/11,'APROVADA');
+insert into solicitacoes_pecas (usuario_id, nome_peca, quantidade, data_solicitacao, status) VALUES
+(3, 'Farol de neblina da luz amarela', 1, '2025-07-11','Aprovada');
