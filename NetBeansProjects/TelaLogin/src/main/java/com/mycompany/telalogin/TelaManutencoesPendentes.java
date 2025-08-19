@@ -12,7 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.*;
 
 public class TelaManutencoesPendentes extends JPanel {
     private JTable tabela;
@@ -32,7 +31,6 @@ public class TelaManutencoesPendentes extends JPanel {
         add(titulo, BorderLayout.NORTH);
 
         // ===== TABELA =====
-        // REMOVIDA A COLUNA "Urgência" - AGORA SÃO 5 COLUNAS
         String[] colunas = {"VEÍCULO", "PLACA", "Data de Solicitação", "Tipo de Manutenção", "Manutenção"};
 
         DefaultTableModel modelo = new DefaultTableModel(colunas, 0) {
@@ -49,8 +47,7 @@ public class TelaManutencoesPendentes extends JPanel {
         tabela.getTableHeader().setBackground(Color.BLACK);
         tabela.getTableHeader().setForeground(Color.WHITE);
 
-        // ===== BOTÃO "Iniciar" =====
-        // AGORA A COLUNA DO BOTÃO É A 4 (em vez da 5)
+        // ===== BOTÃO Iniciar a manutenção =====
         tabela.getColumnModel().getColumn(4).setCellRenderer(new ButtonRenderer());
         tabela.getColumnModel().getColumn(4).setCellEditor(new ButtonEditor(new JCheckBox()));
 
@@ -61,9 +58,8 @@ public class TelaManutencoesPendentes extends JPanel {
     }
 
     private void carregarDados(DefaultTableModel modelo) {
-        modelo.setRowCount(0); // limpar antes
+        modelo.setRowCount(0);
 
-        // Aqui você chama o DAO para buscar as manutenções pendentes
         List<Object[]> lista = MecanicoDAO.listarManutencoesPendentes();
 
         for (Object[] linha : lista) {
@@ -72,12 +68,12 @@ public class TelaManutencoesPendentes extends JPanel {
                 linha[1], // placa
                 linha[2], // data DE SOLICITA
                 linha[3], // tipo DE MANUTENÇÕA É A DESCRIÇÃO DO PROBLEMA A SER RESOLVIDO
-                "Iniciar"  // BOTÃO - AGORA NA COLUNA 4
+                "Iniciar"  // buttao
             });
         }
     }
 
-    // ===== Classes auxiliares para botões no JTable =====
+    // ===== Classes  para botões do JTable =====
     class ButtonRenderer extends JButton implements TableCellRenderer {
         public ButtonRenderer() {
             setOpaque(true);
@@ -122,7 +118,7 @@ public class TelaManutencoesPendentes extends JPanel {
             if (clicked) {
                 String veiculo = tabela.getValueAt(row, 0).toString();
                 JOptionPane.showMessageDialog(button, "Iniciando manutenção do veículo: " + veiculo);
-                // Aqui você pode chamar o DAO para atualizar o status
+                // tenho q atualizar o  status e chamar o dao
             }
             clicked = false;
             return label;
