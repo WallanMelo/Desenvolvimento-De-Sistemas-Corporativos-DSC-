@@ -11,7 +11,7 @@ public class TelaLogin extends JFrame {
     private JButton botaoEntrar;
     private JLabel linkEsqueciSenha;
 
-    // Configurações do banco de dados
+    // Deixei denovo para root, talvez haja mudanças depois....*********************************************************
     private static final String DB_URL = "jdbc:mysql://localhost:3306/aluguel_veiculos?useSSL=false&serverTimezone=UTC";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "12345";
@@ -115,7 +115,7 @@ public class TelaLogin extends JFrame {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this,
-                    "Erro ao conectar ao banco de dados!\n" + ex.getMessage(),
+                    "Erro ao conectar ao banco de dados! (Certifique-se de estar com usuario 'root' e senha 12345).\n" + ex.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
@@ -125,7 +125,8 @@ public class TelaLogin extends JFrame {
         JOptionPane.showMessageDialog(this,
                 "Bem-vindo, " + nivel + "!\nLogin realizado com sucesso.",
                 "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
+        
+        //Telas de cada tipo de usuário
         SwingUtilities.invokeLater(() -> {
             switch (nivel) {
                 case "Administrador":
@@ -148,7 +149,6 @@ public class TelaLogin extends JFrame {
     }
 
     public static void main(String[] args) {
-        // Carregar driver JDBC
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.println("Driver JDBC carregado com sucesso!");
@@ -166,7 +166,7 @@ public class TelaLogin extends JFrame {
             e.printStackTrace();
         }
 
-        // Iniciar a aplicação
+        // iniciandoá a aplicação
         SwingUtilities.invokeLater(() -> {
             TelaLogin login = new TelaLogin();
             login.setVisible(true);

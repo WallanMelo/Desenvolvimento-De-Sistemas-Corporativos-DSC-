@@ -22,7 +22,14 @@ public class TelaAtendente extends JFrame {
         labelLogin.setFont(new Font("Arial", Font.PLAIN, 14));
         labelLogin.setForeground(Color.WHITE);
         painelTopo.add(labelLogin, BorderLayout.WEST);
-
+        
+        
+        
+        
+        
+        
+        
+        
         JButton botaoLogout = new JButton("Logout >");
         botaoLogout.setFont(new Font("Arial", Font.BOLD, 12));
         botaoLogout.setFocusPainted(false);
@@ -34,7 +41,6 @@ public class TelaAtendente extends JFrame {
             new TelaLogin().setVisible(true);
         });
         painelTopo.add(botaoLogout, BorderLayout.EAST);
-
         add(painelTopo, BorderLayout.NORTH);
 
         // ===== MENU LATERAL =====
@@ -50,19 +56,18 @@ public class TelaAtendente extends JFrame {
         labelMenuTitulo.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
         painelMenu.add(labelMenuTitulo);
 
-        // Botões do menu
+        //botões de menu
         String[] opcoes = {
-            "Cadastrar Cliente", "Registrar Aluguel", "Registrar Devolução", "Status Da Frota"
+          "Cadastrar Cliente", "Gerenciar Clientes", "Registrar Aluguel", "Registrar Devolução", "Status Da Frota"
         };
-
-        // Criando painelConteudo para trocar telas
+        //painelConteudo para trocar telas
         painelConteudo = new JPanel(new BorderLayout());
         painelConteudo.setBackground(new Color(90, 90, 90)); // cinza escuro
 
         // Tela inicial de boas-vindas
         painelConteudo.add(criarTelaBemVindo(), BorderLayout.CENTER);
 
-        // Adiciona botões ao menu e configura ação para trocar conteúdo
+        //adiciona botões ao menu e configura ação para trocar conteudo
         for (String opcao : opcoes) {
             JButton botao = new JButton(opcao);
             botao.setMaximumSize(new Dimension(Integer.MAX_VALUE, 45));
@@ -73,7 +78,6 @@ public class TelaAtendente extends JFrame {
             botao.setHorizontalAlignment(SwingConstants.LEFT);
             botao.setIconTextGap(10);
             botao.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
             botao.addActionListener(e -> {
                 switch (opcao) {
                     case "Cadastrar Cliente":
@@ -88,26 +92,26 @@ public class TelaAtendente extends JFrame {
                     case "Status Da Frota":
                         trocarConteudo(new TelaStatusFrota());
                         break;
+                    case "Gerenciar Clientes":
+                        trocarConteudo(new TelaGerenciarClientes());
+                        break;
                 }
-
             });
-
             painelMenu.add(botao);
         }
-
         add(painelMenu, BorderLayout.WEST);
         add(painelConteudo, BorderLayout.CENTER);
     }
 
-    // Método para trocar o conteúdo central
-    private void trocarConteudo(JPanel novoPainel) {
+    //método para trocar o conteúdo central
+    private void trocarConteudo(JPanel novoPainel){
         painelConteudo.removeAll();
         painelConteudo.add(novoPainel, BorderLayout.CENTER);
         painelConteudo.revalidate();
         painelConteudo.repaint();
     }
 
-    // Tela inicial de boas-vindas
+    //tela inicial de boas-vindas
     private JPanel criarTelaBemVindo() {
         JPanel painel = new JPanel();
         painel.setBackground(new Color(140, 140, 140));
@@ -115,9 +119,8 @@ public class TelaAtendente extends JFrame {
 
         JLabel label = new JLabel("<html><div style='text-align: center; font-size: 10px'>"
                 + "Bem-vindo, Atendente!<br>"
-                + "Pronto para mais um dia de atendimento?<br><br>"
-                + "Use o menu ao lado para registrar aluguéis, clientes, "
-                + "devoluções e consultar dados de clientes e veículos."
+                + "Pronto para mais um dia normal na vida de CLT?<br><br>"
+                + "Use o menu ao lado para registros e consultas. "
                 + "</div></html>", SwingConstants.CENTER);
         label.setFont(new Font("Arial", Font.PLAIN, 16));
         label.setForeground(Color.BLACK);
@@ -126,7 +129,7 @@ public class TelaAtendente extends JFrame {
         return painel;
     }
 
-    // Método para criar telas simples com título
+    // Método para criar telas
     private JPanel criarTela(String titulo) {
         JPanel painel = new JPanel();
         painel.setBackground(new Color(140, 140, 140));
