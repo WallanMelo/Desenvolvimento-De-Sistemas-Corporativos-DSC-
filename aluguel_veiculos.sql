@@ -50,3 +50,31 @@ INSERT INTO veiculo (modelo, placa, status) VALUES
 ('Uno Endemoniado','SLK-1234','Disponível'),
 ('Celta 1.0','ZZZ-1234','Disponível'),
 ('Onix 1.4','DEF-5678','Disponível');
+
+
+
+CREATE TABLE IF NOT EXISTS manutencoes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    veiculo_id INT NOT NULL,
+    usuario_id INT NOT Null,
+    descricao VARCHAR(255) NOT NULL,
+    data_solicitacao DATE NOT NULL,
+    data_conclusao DATE,
+    status ENUM('PENDENTE', 'EM_ANDAMENTO', 'FINALIZADA') DEFAULT 'PENDENTE'
+);
+
+insert into manutencoes () VALUES
+('Problema na caixa de marcha, e farol de neblina sem funcionar o lado esquerdo', 2025/07/10, 2025/08/12, 'FINALIZADA')
+
+
+CREATE TABLE IF NOT EXISTS solicitacoes_pecas(
+    id INT auto_increment primary key,
+    usuario_id INT NOT NULL,
+    nome_peca VARCHAR(100) NOT NULL,
+    quantidade INT NOT NULL,
+    data_solicitacao DATE NOT NULL,
+    status ENUM('EM_ANALISE', 'APROVADA', 'EM_ANDAMENTO') DEFAULT 'EM_ANALISE'
+);
+
+insert into solicitacoes_pecas() VALUES
+('farol de neblina da luz amarela', '1', 2025/07/11,'APROVADA');
