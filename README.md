@@ -48,11 +48,32 @@ git clone https://github.com/WallanMelo/Desenvolvimento-De-Sistemas-Corporativos
 ## 5. Execute essa base de dados (Ctrl + Shift + Enter), pois é ela contém dados base para você navegar no sistema.
 <img width="1528" height="880" alt="Image" src="https://github.com/user-attachments/assets/087af9c0-c482-430e-89a2-3eba3d2deab6" />
 
-## 6. Volte para a pasta que você clonou e navegue até a pasta "TelaLogin"
-<img width="870" height="362" alt="Image" src="https://github.com/user-attachments/assets/b286c577-8508-4bb2-b7cb-4c62ff8672b5" />
+## 6. Volte para a pasta que você clonou, abra a pasta "NetBeansProjects".
+Você verá uma tela parecida com essa, perceba que há uma pasta chamada "TelaLogin"
+<img width="1123" height="452" alt="Image" src="https://github.com/user-attachments/assets/f0387e0d-6002-41e2-9df5-e440f9c2bb7d" />
 
-## 7. Abra essa pasta "TelaLogin" com o Apache NetBeans
-Você verá algo parecido com isso (a pasta TelaLogin aberta no NetBeans):
+## 7. Abra essa pasta "TelaLogin" no Apache NetBeans.
+Isto é, clique nela com o botão direito do mouse e escolha a opção de abrir com NetBeans.
+Você verá algo parecido com isso (ou seja, você acabou de abrir a pasta TelaLogin no NetBeans):
 <img width="1086" height="599" alt="Image" src="https://github.com/user-attachments/assets/c3cc0144-52c8-428b-bfb9-d62ddee33efe" />
 
+## 8. Clique com o botão direito do mouse sobre a pasta "TelaLogin" e clique na opção "Clean and Build".
+Ou o equivalente, se o seu NetBeans estiver em português.
+<img width="1269" height="983" alt="Image" src="https://github.com/user-attachments/assets/7178b75d-473e-494d-82bc-0d8f182ccf7c" />
+
+## 9. Logo em seguinda, clique denovo na pasta "TelaLogin", mas desta vez você vai clicar em "Open in Terminal"
+Ou o equivalente, se o seu NetBeans estiver em português.
+<img width="1269" height="983" alt="Image" src="https://github.com/user-attachments/assets/33c0200c-75e4-4b93-8095-70ae134e7254" />
+
+## 10. No terminal que você acabou de abrir, digite o seguinte comando e depois dê Enter:
+mvn clean compile exec:java
+<img width="1345" height="502" alt="Image" src="https://github.com/user-attachments/assets/2d606f9d-6ecd-4e9f-bd0e-69ea8963f0c0" />
+
+## 11. PRONTO! Agora você está na tela de login do sistema.
+Lembra daquela base de dados que você executou no MySQL Workbench? pois é, nela contém alguns usuários pré-definidos que você pode usar para se conectar ao sistema.
+- Administrador (login: admin / senha: 123)
+- Atendente (login: cleb / senha: 1234)
+- Mecânico (login: wallan / senha: 4321)
+
+<img width="1470" height="898" alt="Image" src="https://github.com/user-attachments/assets/7778847e-35bb-46ea-908b-c422f80dd142" />
 
