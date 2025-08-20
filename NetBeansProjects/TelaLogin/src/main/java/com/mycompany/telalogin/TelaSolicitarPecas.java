@@ -1,178 +1,3 @@
-/*package com.mycompany.telalogin;
-
-import com.mycompany.telalogin.dao.MecanicoDAO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
-import com.toedter.calendar.JDateChooser;
-import java.util.Date;
-
-public class TelaSolicitarPecas extends JPanel {
-
-    private JTextField campoNomePeca;
-    private JSpinner campoQuantidade;
-    private JDateChooser campoDataDesejada;
-    private JTextArea campoJustificativa;
-    private JTextField campoPlaca;
-    private JButton botaoEnviar;
-    
-    // Adicione esta variável para armazenar o ID do usuário logado.
-    // Você deve obter este valor de alguma forma (por exemplo, do login).
-    private int usuarioId; 
-    
-    // Construtor que recebe o ID do usuário
-    public TelaSolicitarPecas(int usuarioId) {
-        this.usuarioId = usuarioId;
-        
-        // Configura o layout da tela
-        setLayout(new GridBagLayout());
-        setBackground(new Color(230, 230, 230));
-
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
-        gbc.anchor = GridBagConstraints.WEST;
-
-        // Título "Solicitar Peças"
-        JLabel titulo = new JLabel("Solicitar Peças");
-        titulo.setFont(new Font("Arial", Font.BOLD, 24));
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.CENTER;
-        add(titulo, gbc);
-
-        // Nome da Peça
-        JLabel labelNomePeca = new JLabel("<html><font color='red'><b>*</b></font> Nome da Peça:</html>");
-        labelNomePeca.setFont(new Font("Arial", Font.PLAIN, 16));
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.gridwidth = 1;
-        gbc.anchor = GridBagConstraints.LINE_END;
-        add(labelNomePeca, gbc);
-
-        campoNomePeca = new JTextField(20);
-        campoNomePeca.setPreferredSize(new Dimension(250, 30));
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        gbc.anchor = GridBagConstraints.LINE_START;
-        add(campoNomePeca, gbc);
-
-        // Quantidade
-        JLabel labelQuantidade = new JLabel("<html><font color='red'><b>*</b></font> Quantidade:</html>");
-        labelQuantidade.setFont(new Font("Arial", Font.PLAIN, 16));
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.anchor = GridBagConstraints.LINE_END;
-        add(labelQuantidade, gbc);
-
-        SpinnerNumberModel model = new SpinnerNumberModel(1, 1, 100, 1);
-        campoQuantidade = new JSpinner(model);
-        campoQuantidade.setPreferredSize(new Dimension(100, 30));
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        gbc.anchor = GridBagConstraints.LINE_START;
-        add(campoQuantidade, gbc);
-        
-        // Data Desejada
-        JLabel labelDataDesejada = new JLabel("<html><font color='red'><b>*</b></font> Data Desejada:</html>");
-        labelDataDesejada.setFont(new Font("Arial", Font.PLAIN, 16));
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.anchor = GridBagConstraints.LINE_END;
-        add(labelDataDesejada, gbc);
-
-        campoDataDesejada = new JDateChooser();
-        campoDataDesejada.setDateFormatString("dd/MM/yyyy");
-        campoDataDesejada.setPreferredSize(new Dimension(150, 30));
-        gbc.gridx = 1;
-        gbc.gridy = 3;
-        gbc.anchor = GridBagConstraints.LINE_START;
-        add(campoDataDesejada, gbc);
-
-        // Justificativa
-        JLabel labelJustificativa = new JLabel("<html><font color='red'><b>*</b></font> Justificativa:</html>");
-        labelJustificativa.setFont(new Font("Arial", Font.PLAIN, 16));
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        gbc.anchor = GridBagConstraints.FIRST_LINE_END;
-        add(labelJustificativa, gbc);
-
-        campoJustificativa = new JTextArea(5, 20);
-        campoJustificativa.setLineWrap(true);
-        campoJustificativa.setWrapStyleWord(true);
-        JScrollPane scrollJustificativa = new JScrollPane(campoJustificativa);
-        scrollJustificativa.setPreferredSize(new Dimension(250, 100));
-        gbc.gridx = 1;
-        gbc.gridy = 4;
-        gbc.anchor = GridBagConstraints.LINE_START;
-        add(scrollJustificativa, gbc);
-        
-        // Placa associada
-        JLabel labelPlaca = new JLabel("<html><font color='red'><b>*</b></font> Placa associada a Peça:</html>");
-        labelPlaca.setFont(new Font("Arial", Font.PLAIN, 16));
-        gbc.gridx = 0;
-        gbc.gridy = 5;
-        gbc.anchor = GridBagConstraints.LINE_END;
-        add(labelPlaca, gbc);
-
-        campoPlaca = new JTextField(20);
-        campoPlaca.setPreferredSize(new Dimension(250, 30));
-        gbc.gridx = 1;
-        gbc.gridy = 5;
-        gbc.anchor = GridBagConstraints.LINE_START;
-        add(campoPlaca, gbc);
-
-        // Botão Enviar Solicitação
-        botaoEnviar = new JButton("Enviar Solicitação");
-        botaoEnviar.setFont(new Font("Arial", Font.BOLD, 14));
-        botaoEnviar.setBackground(new Color(50, 50, 50));
-        botaoEnviar.setForeground(Color.WHITE);
-        botaoEnviar.setFocusPainted(false);
-        botaoEnviar.setPreferredSize(new Dimension(180, 40));
-        gbc.gridx = 0;
-        gbc.gridy = 6;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.CENTER;
-        add(botaoEnviar, gbc);
-        
-        // Listener para o botão de envio
-        botaoEnviar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                enviarSolicitacao();
-            }
-        });
-    }
-    
-    // Método para enviar a solicitação para o DAO
-    private void enviarSolicitacao() {
-        String nomePeca = campoNomePeca.getText();
-        int quantidade = (Integer) campoQuantidade.getValue();
-        Date dataDesejada = campoDataDesejada.getDate();
-        String justificativa = campoJustificativa.getText();
-        String placa = campoPlaca.getText();
-
-        if (nomePeca.isEmpty() || justificativa.isEmpty() || placa.isEmpty() || dataDesejada == null) {
-            JOptionPane.showMessageDialog(this, "Todos os campos marcados com * são obrigatórios.", "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (MecanicoDAO.solicitarPecas(usuarioId, nomePeca, quantidade, dataDesejada, justificativa, placa)) {
-            JOptionPane.showMessageDialog(this, "Solicitação de peças enviada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            // Limpar os campos após o envio
-            campoNomePeca.setText("");
-            campoQuantidade.setValue(1);
-            campoDataDesejada.setDate(null);
-            campoJustificativa.setText("");
-            campoPlaca.setText("");
-        } else {
-            JOptionPane.showMessageDialog(this, "Erro ao enviar solicitação.", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-}
-*/
 package com.mycompany.telalogin;
 
 import com.mycompany.telalogin.dao.MecanicoDAO;
@@ -190,16 +15,11 @@ public class TelaSolicitarPecas extends JPanel {
     private JTextArea campoJustificativa;
     private JTextField campoPlaca;
     private JButton botaoEnviar;
-    
-    // Adicione esta variável para armazenar o ID do usuário logado.
-    // Você deve obter este valor de alguma forma (por exemplo, do login).
     private int usuarioId; 
     
-    // Construtor que recebe o ID do usuário
     public TelaSolicitarPecas(int usuarioId) {
         this.usuarioId = usuarioId;
         
-        // Configura o layout da tela
         setLayout(new GridBagLayout());
         setBackground(new Color(230, 230, 230));
 
@@ -207,7 +27,6 @@ public class TelaSolicitarPecas extends JPanel {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.anchor = GridBagConstraints.WEST;
 
-        // Título "Solicitar Peças"
         JLabel titulo = new JLabel("Solicitar Peças");
         titulo.setFont(new Font("Arial", Font.BOLD, 24));
         gbc.gridx = 0;
@@ -216,7 +35,7 @@ public class TelaSolicitarPecas extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         add(titulo, gbc);
 
-        // Nome da Peça
+        //==== Nome da Peça =======================================================
         JLabel labelNomePeca = new JLabel("<html><font color='red'><b>*</b></font> Nome da Peça:</html>");
         labelNomePeca.setFont(new Font("Arial", Font.PLAIN, 16));
         gbc.gridx = 0;
@@ -232,7 +51,7 @@ public class TelaSolicitarPecas extends JPanel {
         gbc.anchor = GridBagConstraints.LINE_START;
         add(campoNomePeca, gbc);
 
-        // Quantidade
+        //==== QTD ==============================================================
         JLabel labelQuantidade = new JLabel("<html><font color='red'><b>*</b></font> Quantidade:</html>");
         labelQuantidade.setFont(new Font("Arial", Font.PLAIN, 16));
         gbc.gridx = 0;
@@ -248,7 +67,7 @@ public class TelaSolicitarPecas extends JPanel {
         gbc.anchor = GridBagConstraints.LINE_START;
         add(campoQuantidade, gbc);
         
-        // Data Desejada
+        //==== Data Desejada do Pedido =======================================================
         JLabel labelDataDesejada = new JLabel("<html><font color='red'><b>*</b></font> Data Desejada:</html>");
         labelDataDesejada.setFont(new Font("Arial", Font.PLAIN, 16));
         gbc.gridx = 0;
@@ -256,8 +75,6 @@ public class TelaSolicitarPecas extends JPanel {
         gbc.anchor = GridBagConstraints.LINE_END;
         add(labelDataDesejada, gbc);
         
-        // Alterado de JDateChooser para JTextField para evitar o erro de dependência.
-        // O usuário deve digitar a data no formato AAAA-MM-DD
         campoDataDesejada = new JTextField(10);
         campoDataDesejada.setPreferredSize(new Dimension(150, 30));
         gbc.gridx = 1;
@@ -265,7 +82,7 @@ public class TelaSolicitarPecas extends JPanel {
         gbc.anchor = GridBagConstraints.LINE_START;
         add(campoDataDesejada, gbc);
 
-        // Justificativa
+        //==== justificativa ============================================================
         JLabel labelJustificativa = new JLabel("<html><font color='red'><b>*</b></font> Justificativa:</html>");
         labelJustificativa.setFont(new Font("Arial", Font.PLAIN, 16));
         gbc.gridx = 0;
@@ -283,7 +100,7 @@ public class TelaSolicitarPecas extends JPanel {
         gbc.anchor = GridBagConstraints.LINE_START;
         add(scrollJustificativa, gbc);
         
-        // Placa associada
+        //==== Placa associada ao Pedido ===========================================
         JLabel labelPlaca = new JLabel("<html><font color='red'><b>*</b></font> Placa associada a Peça:</html>");
         labelPlaca.setFont(new Font("Arial", Font.PLAIN, 16));
         gbc.gridx = 0;
@@ -298,7 +115,7 @@ public class TelaSolicitarPecas extends JPanel {
         gbc.anchor = GridBagConstraints.LINE_START;
         add(campoPlaca, gbc);
 
-        // Botão Enviar Solicitação
+        //==== BUTTON de enviar o pedido =========================================
         botaoEnviar = new JButton("Enviar Solicitação");
         botaoEnviar.setFont(new Font("Arial", Font.BOLD, 14));
         botaoEnviar.setBackground(new Color(50, 50, 50));
@@ -311,7 +128,6 @@ public class TelaSolicitarPecas extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         add(botaoEnviar, gbc);
         
-        // Listener para o botão de envio
         botaoEnviar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -320,7 +136,7 @@ public class TelaSolicitarPecas extends JPanel {
         });
     }
     
-    // Método para enviar a solicitação para o DAO
+    //funct q envia para  o DataAcces do oBJ a solicitação feita pelo USER
     private void enviarSolicitacao() {
         String nomePeca = campoNomePeca.getText();
         int quantidade = (Integer) campoQuantidade.getValue();
@@ -335,7 +151,6 @@ public class TelaSolicitarPecas extends JPanel {
 
         if (MecanicoDAO.solicitarPecas(usuarioId, nomePeca, quantidade, dataDesejadaStr, justificativa, placa)) {
             JOptionPane.showMessageDialog(this, "Solicitação de peças enviada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            // Limpar os campos após o envio
             campoNomePeca.setText("");
             campoQuantidade.setValue(1);
             campoDataDesejada.setText("");

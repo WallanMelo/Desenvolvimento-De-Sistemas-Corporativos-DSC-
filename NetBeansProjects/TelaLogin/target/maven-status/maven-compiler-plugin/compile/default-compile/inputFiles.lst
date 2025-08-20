@@ -3,7 +3,9 @@
 /home/wallan7/Área de Trabalho/Desenvolvimento-De-Sistemas-Corporativos-DSC-/NetBeansProjects/TelaLogin/src/main/java/com/mycompany/telalogin/TelaListarSolicitacoesPecas.java
 /home/wallan7/Área de Trabalho/Desenvolvimento-De-Sistemas-Corporativos-DSC-/NetBeansProjects/TelaLogin/src/main/java/com/mycompany/telalogin/TelaAdministrador.java
 /home/wallan7/Área de Trabalho/Desenvolvimento-De-Sistemas-Corporativos-DSC-/NetBeansProjects/TelaLogin/src/main/java/com/mycompany/telalogin/TelaMecanico.java
+/home/wallan7/Área de Trabalho/Desenvolvimento-De-Sistemas-Corporativos-DSC-/NetBeansProjects/TelaLogin/src/main/java/com/mycompany/telalogin/dao/RelatorioDAO.java
 /home/wallan7/Área de Trabalho/Desenvolvimento-De-Sistemas-Corporativos-DSC-/NetBeansProjects/TelaLogin/src/main/java/com/mycompany/telalogin/TelaCadastrarCliente.java
+/home/wallan7/Área de Trabalho/Desenvolvimento-De-Sistemas-Corporativos-DSC-/NetBeansProjects/TelaLogin/src/main/java/com/mycompany/telalogin/TelaGestao.java
 /home/wallan7/Área de Trabalho/Desenvolvimento-De-Sistemas-Corporativos-DSC-/NetBeansProjects/TelaLogin/src/main/java/com/mycompany/telalogin/TelaHistoricoManutencoes.java
 /home/wallan7/Área de Trabalho/Desenvolvimento-De-Sistemas-Corporativos-DSC-/NetBeansProjects/TelaLogin/src/main/java/com/mycompany/telalogin/TelaRegistrarAluguel.java
 /home/wallan7/Área de Trabalho/Desenvolvimento-De-Sistemas-Corporativos-DSC-/NetBeansProjects/TelaLogin/src/main/java/com/mycompany/telalogin/TelaRegistrarDevolucao.java
@@ -15,5 +17,6 @@
 /home/wallan7/Área de Trabalho/Desenvolvimento-De-Sistemas-Corporativos-DSC-/NetBeansProjects/TelaLogin/src/main/java/com/mycompany/telalogin/Conexao.java
 /home/wallan7/Área de Trabalho/Desenvolvimento-De-Sistemas-Corporativos-DSC-/NetBeansProjects/TelaLogin/src/main/java/com/mycompany/telalogin/dao/AluguelDAO.java
 /home/wallan7/Área de Trabalho/Desenvolvimento-De-Sistemas-Corporativos-DSC-/NetBeansProjects/TelaLogin/src/main/java/com/mycompany/telalogin/dao/ClienteDAO.java
+/home/wallan7/Área de Trabalho/Desenvolvimento-De-Sistemas-Corporativos-DSC-/NetBeansProjects/TelaLogin/src/main/java/com/mycompany/telalogin/TelaRelatorios.java
 /home/wallan7/Área de Trabalho/Desenvolvimento-De-Sistemas-Corporativos-DSC-/NetBeansProjects/TelaLogin/src/main/java/com/mycompany/telalogin/TelaAtendente.java
 /home/wallan7/Área de Trabalho/Desenvolvimento-De-Sistemas-Corporativos-DSC-/NetBeansProjects/TelaLogin/src/main/java/com/mycompany/telalogin/TelaLogin.java
