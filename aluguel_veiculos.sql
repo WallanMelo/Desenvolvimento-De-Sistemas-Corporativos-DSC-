@@ -105,9 +105,12 @@ CREATE TABLE IF NOT EXISTS solicitacoes_pecas(
     nome_peca VARCHAR(100) NOT NULL,
     quantidade INT NOT NULL,
     data_solicitacao DATE NOT NULL,
-    status ENUM('Em_Analise', 'Aprovada', 'Em_Andamento') DEFAULT 'Em_Analise',
-    FOREIGN KEY (usuario_id) REFERENCES usuario(id)
+    justificativa TEXT NOT NULL,
+    veiculo_id INT NOT NULL,
+    status ENUM('Em_Analise', 'Aprovada', 'Recusada') DEFAULT 'Em_Analise',
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id),
+    FOREIGN KEY (veiculo_id) REFERENCES veiculo(id)
 );
 
-insert into solicitacoes_pecas (usuario_id, nome_peca, quantidade, data_solicitacao, status) VALUES
-(3, 'Farol de neblina da luz amarela', 1, '2025-07-11','Aprovada');
+INSERT INTO solicitacoes_pecas (usuario_id, nome_peca, quantidade, data_solicitacao, justificativa, veiculo_id, status) VALUES
+(3, 'Farol de neblina da luz amarela', 1, '2025-07-11', 'Manutenção corretiva', 1, 'Aprovada');

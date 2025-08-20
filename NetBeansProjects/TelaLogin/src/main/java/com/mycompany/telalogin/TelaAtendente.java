@@ -90,7 +90,7 @@ public class TelaAtendente extends JFrame {
                         trocarConteudo(new TelaRegistrarDevolucao());
                         break;
                     case "Status Da Frota":
-                        trocarConteudo(new TelaStatusFrota());
+                        trocarConteudo(new TelaStatusFrota("Atendente", nomeUsuario));//Passando o TIpo(Adm - atend - Meca) e o Nome do User 
                         break;
                     case "Gerenciar Clientes":
                         trocarConteudo(new TelaGerenciarClientes());
