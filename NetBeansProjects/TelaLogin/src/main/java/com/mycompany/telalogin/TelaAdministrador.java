@@ -95,7 +95,8 @@ public class TelaAdministrador extends JFrame {
             botao.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             botao.addActionListener(e -> {
                 if (opcao.equals("Gestão")) {
-                    JOptionPane.showMessageDialog(TelaAdministrador.this, "A tela de Gestão ainda não foi implementada.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                    trocarMenu(criarPainelMenuPrincipal()); 
+                    trocarConteudo(new TelaGestao());
                 } else if (opcao.equals("Relatórios")) {
                     trocarMenu(criarPainelMenuRelatorios());
                     trocarConteudo(new TelaRelatorios());
