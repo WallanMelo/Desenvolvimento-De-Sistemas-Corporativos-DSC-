@@ -232,6 +232,13 @@ public class TelaGestao extends JPanel {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios (*)!");
             return;
         }
+        
+        //Impede que um admin cadastre outro admin
+        if (comboNivel.getSelectedItem().toString().equals("Administrador")) {
+            JOptionPane.showMessageDialog(this, 
+                "Não é permitido cadastrar outro Administrador!");
+            return;
+        }
 
         String sql = "INSERT INTO usuario (nome,cpf,email,telefone,data_nascimento,login,senha,nivel,salario) VALUES (?,?,?,?,?,?,?,?,?)";
         try (Connection conn = conectar();
@@ -256,7 +263,7 @@ public class TelaGestao extends JPanel {
         }
     }
 
-    // ====== ATUALIZAR FUNCIONAIO ==========
+    // ====== ATUALIZAR FUNCIONARIO ==========
     private void atualizarFuncionario() {
         if(funcionarioSelecionadoId == -1) {
             JOptionPane.showMessageDialog(this,"Selecione um funcionário na tabela!");
@@ -269,6 +276,14 @@ public class TelaGestao extends JPanel {
             JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios (*)!");
             return;
         }
+        
+        //Impede de um admin atualizar os dados de outro admin
+        if (comboNivel.getSelectedItem().toString().equals("Administrador")) {
+            JOptionPane.showMessageDialog(this, 
+                "Não é permitido atualizar dados de Administrador!");
+            return;
+        }
+
 
         String senha = new String(campoSenha.getPassword());
         String sql;
@@ -326,6 +341,15 @@ public class TelaGestao extends JPanel {
         if (confirmacao != JOptionPane.YES_OPTION) {
             return;
         }
+        
+        // Nao permite com que um admin delete outro admin
+        String nivel = modeloTabela.getValueAt(tabela.getSelectedRow(), 7).toString();
+        if (nivel.equals("Administrador")) {
+            JOptionPane.showMessageDialog(this,
+                    "Não é permitido excluir um Administrador!");
+            return;
+        }
+
 
         String sql = "DELETE FROM usuario WHERE id=?";
         try (Connection conn = conectar();

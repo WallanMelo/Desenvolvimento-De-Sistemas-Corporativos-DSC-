@@ -82,10 +82,11 @@ public class TelaLogin extends JFrame {
         add(linkEsqueciSenha);
     }
 
+    // Administradore spodem logar como quiserem
     private void fazerLogin() {
         String usuario = campoUsuario.getText().trim();
         String senha = new String(campoSenha.getPassword());
-        String nivel = (String) comboNivelAcesso.getSelectedItem();
+        String nivelSelecionado = (String) comboNivelAcesso.getSelectedItem();
 
         if (usuario.isEmpty() || senha.isEmpty()) {
             JOptionPane.showMessageDialog(this,
@@ -95,12 +96,18 @@ public class TelaLogin extends JFrame {
         }
 
         try (Connection conexao = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            String sql = "SELECT * FROM usuario WHERE login = ? AND senha = ? AND nivel = ?";
+            // Se for admin, pode entrar em qualquer niveil com as mesmas credenciais
+            if (usuario.equals("admin") && senha.equals("123")) {
+                loginBemSucedido(usuario, nivelSelecionado);
+                return;
+            }
 
+            // Se nn for admin, valida o login normalmente
+            String sql = "SELECT * FROM usuario WHERE login = ? AND senha = ? AND nivel = ?";
             try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
                 stmt.setString(1, usuario);
                 stmt.setString(2, senha);
-                stmt.setString(3, nivel);
+                stmt.setString(3, nivelSelecionado);
 
                 try (ResultSet rs = stmt.executeQuery()) {
                     if (rs.next()) {
@@ -108,18 +115,19 @@ public class TelaLogin extends JFrame {
                         loginBemSucedido(usuario, nivelBanco);
                     } else {
                         JOptionPane.showMessageDialog(this,
-                                "Usuário, senha ou nível de acesso incorretos!",
+                                "Usuário, senha ou nivel de acesso incorretos!",
                                 "Erro de Login", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this,
-                    "Erro ao conectar ao banco de dados! (Certifique-se de estar com usuario 'root' e senha 12345).\n" + ex.getMessage(),
+                    "Erro ao conectar ao banco de dados!\n" + ex.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         }
     }
+
 
     private void loginBemSucedido(String usuario, String nivel) {
         JOptionPane.showMessageDialog(this,
