@@ -1,4 +1,4 @@
-DROP DATABASE aluguel_veiculos;
+drop database aluguel_veiculos;
 CREATE DATABASE aluguel_veiculos CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE aluguel_veiculos;
 
@@ -81,8 +81,8 @@ CREATE TABLE aluguel (
     valor DECIMAL(10,2) DEFAULT 0.00,
     multa DECIMAL(10,2) DEFAULT 0.00,
     devolvido BOOLEAN DEFAULT FALSE,
-    FOREIGN KEY (cliente_id) REFERENCES cliente(id),
-    FOREIGN KEY (veiculo_id) REFERENCES veiculo(id)
+    FOREIGN KEY (cliente_id) REFERENCES cliente(id) ON DELETE CASCADE,
+    FOREIGN KEY (veiculo_id) REFERENCES veiculo(id) ON DELETE CASCADE
 );
 
 -- devolvido dentro do prazo e por isso sem multa
@@ -137,8 +137,8 @@ CREATE TABLE IF NOT EXISTS manutencoes (
     data_solicitacao DATE NOT NULL,
     data_conclusao DATE,
     status ENUM('Pendente', 'Em_Andamento', 'Finalizada') DEFAULT 'Pendente',
-    FOREIGN KEY (veiculo_id) REFERENCES veiculo(id),
-    FOREIGN KEY (usuario_id) REFERENCES usuario(id)
+    FOREIGN KEY (veiculo_id) REFERENCES veiculo(id) ON DELETE CASCADE,
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE
 );
 
 INSERT INTO manutencoes (veiculo_id, usuario_id, descricao, data_solicitacao, data_conclusao, status) VALUES
@@ -158,8 +158,8 @@ CREATE TABLE IF NOT EXISTS solicitacoes_pecas(
     justificativa TEXT NOT NULL,
     veiculo_id INT NOT NULL,
     status ENUM('Em_Analise', 'Aprovada', 'Recusada') DEFAULT 'Em_Analise',
-    FOREIGN KEY (usuario_id) REFERENCES usuario(id),
-    FOREIGN KEY (veiculo_id) REFERENCES veiculo(id)
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE,
+    FOREIGN KEY (veiculo_id) REFERENCES veiculo(id) ON DELETE CASCADE
 );
 
 INSERT INTO solicitacoes_pecas (usuario_id, nome_peca, quantidade, data_solicitacao, justificativa, veiculo_id, status) VALUES
@@ -176,8 +176,26 @@ CREATE TABLE IF NOT EXISTS relatorios (
     periodoFim DATE NOT NULL,
     formato ENUM('PDF', 'XLSX') not null,
     data_geracao timestamp default CURRENT_TIMESTAMP,
-    foreign key (usuario_id) references usuario(id)
+    foreign key (usuario_id) references usuario(id) ON DELETE CASCADE
 );
+
+CREATE TABLE log_acoes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    acao VARCHAR(255) NOT NULL,
+    data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id) ON DELETE CASCADE
+);
+
+CREATE TABLE pagamento (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    aluguel_id INT NOT NULL,
+    metodo ENUM('Cartão','Pix','Dinheiro','Boleto') NOT NULL,
+    valor_pago DECIMAL(10,2) NOT NULL,
+    data_pagamento DATE NOT NULL,
+    FOREIGN KEY (aluguel_id) REFERENCES aluguel(id) ON DELETE CASCADE
+);
+
 
 INSERT INTO relatorios (usuario_id, tipo, periodoInicio, periodoFim, formato) VALUES
 (1, 'Financeiro', '2025-07-01', '2025-07-31', 'PDF'),
