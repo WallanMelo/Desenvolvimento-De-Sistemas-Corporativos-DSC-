@@ -1,4 +1,3 @@
-drop database aluguel_veiculos;
 CREATE DATABASE aluguel_veiculos CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE aluguel_veiculos;
 
