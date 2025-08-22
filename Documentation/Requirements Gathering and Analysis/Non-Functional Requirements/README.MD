@@ -16,21 +16,16 @@
 
 #### RNF06 - Cada operação realizada por um usuário deve ter um tempo de resposta inferior a 3 segundos.
 
-#### RNF07 - O sistema deve ser compatível com as configurações de hardware da empresa AVJ.
-
 ## Plataforma
 
-#### RNF08 - O sistema deve ser desenvolvido em Java e funcionar em qualquer sistema operacional que suporte a JVM.
+#### RNF07 - O sistema deve ser desenvolvido em Java e funcionar em qualquer sistema operacional que suporte a JVM.
 
 ## Evolução
 
-#### RNF09 - O sistema deve permitir adição de novas funcionalidades com impacto mínimo sobre os módulos existentes.
+#### RNF08 - O sistema deve permitir adição de novas funcionalidades com impacto mínimo sobre os módulos existentes.
 
-#### RNF10 - O código deve estar documentado com comentários nas partes mais complexas, visando facilitar futuras manutenções.
+#### RNF09 - O código deve estar documentado com comentários nas partes mais complexas, visando facilitar futuras manutenções.
 
 ## Disponibilidade
 
-#### RNF11 - O sistema deve estar disponível para uso durante o horário comercial padrão (8h às 18h), com 99% de tempo operacional.
-
-#### RNF12 - Em caso de falhas, o sistema deve informar o usuário com uma mensagem amigável e registrar a falha em log para análise futura.
-
+#### RNF10 - Em caso de falhas, o sistema deve informar o usuário com uma mensagem amigável e registrar a falha em log para análise futura.
