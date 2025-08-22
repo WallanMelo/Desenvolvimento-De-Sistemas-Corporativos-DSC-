@@ -25,7 +25,8 @@ A disciplina de Desenvolvimento de Sistemas Corporativos (DSC) visa capacitar os
 | 2 - Wallan De Melo Lima  | [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/WallanMelo)|
 
 
-# How to use this system? / Como usar esse sistema?
+# Como usar esse sistema?
+## Recomenda-se que o use em tela cheia, para melhor experiência
 
 ## 1. Certifique-se de ter o MySQL e MySQL Workbench instalados na sua máquina, além destes, instale também o Apache NetBeans, assim como o JDK (Java Development Kit).
 <img width="628" height="405" alt="Image" src="https://github.com/user-attachments/assets/4ad2386e-ebd3-4fb9-b4ba-d68712c9d0d9" />
