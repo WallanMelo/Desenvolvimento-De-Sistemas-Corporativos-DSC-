@@ -1,3 +1,4 @@
+com/mycompany/telalogin/TelaGestaoVeiculos$1.class
 com/mycompany/telalogin/TelaGerenciarClientes$1.class
 com/mycompany/telalogin/TelaMecanico.class
 com/mycompany/telalogin/TelaGerenciarClientes.class
@@ -27,6 +28,7 @@ com/mycompany/telalogin/TelaRelatorios$2.class
 com/mycompany/telalogin/TelaListarSolicitacoesPecas.class
 com/mycompany/telalogin/TelaManutencoesPendentes.class
 com/mycompany/telalogin/dao/VeiculoDAO.class
+com/mycompany/telalogin/TelaGestaoVeiculos.class
 com/mycompany/telalogin/TelaLogin.class
 com/mycompany/telalogin/TelaLogin$1.class
 com/mycompany/telalogin/TelaRegistrarDevolucao$Item.class

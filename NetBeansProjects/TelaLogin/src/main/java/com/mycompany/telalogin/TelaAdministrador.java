@@ -69,7 +69,7 @@ public class TelaAdministrador extends JFrame {
         painelConteudo.repaint();
     }
 
-    ////MENU PRINCIPAL onde FICA as OPÇÕES de GESTÃO e REALTORIOS
+    ////MENU PRINCIPAL onde FICA as OPÇÕES de GESTÃO, GESTÃO DE VEÍCULOS e RELATÓRIOS
     private JPanel criarPainelMenuPrincipal() {
         JPanel painel = new JPanel();
         painel.setLayout(new BoxLayout(painel, BoxLayout.Y_AXIS));
@@ -83,7 +83,7 @@ public class TelaAdministrador extends JFrame {
         labelMenuTitulo.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
         painel.add(labelMenuTitulo);
 
-        String[] opcoes = {"Gestão", "Relatórios"};
+        String[] opcoes = {"Gestão de Funcionarios", "Gestão de Veículos", "Relatórios"};
         for (String opcao : opcoes) {
             JButton botao = new JButton(opcao);
             botao.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
@@ -94,9 +94,12 @@ public class TelaAdministrador extends JFrame {
             botao.setForeground(Color.WHITE);
             botao.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             botao.addActionListener(e -> {
-                if (opcao.equals("Gestão")) {
+                if (opcao.equals("Gestão de Funcionarios")) {
                     trocarMenu(criarPainelMenuPrincipal()); 
                     trocarConteudo(new TelaGestao());
+                } else if (opcao.equals("Gestão de Veículos")) {
+                    trocarMenu(criarPainelMenuVeiculos());
+                    trocarConteudo(new TelaGestaoVeiculos());
                 } else if (opcao.equals("Relatórios")) {
                     trocarMenu(criarPainelMenuRelatorios());
                     trocarConteudo(new TelaRelatorios());
@@ -107,13 +110,66 @@ public class TelaAdministrador extends JFrame {
         return painel;
     }
 
+    // MENU DE GESTÃO DE VEÍCULOS
+    private JPanel criarPainelMenuVeiculos() {
+        JPanel painel = new JPanel();
+        painel.setLayout(new BoxLayout(painel, BoxLayout.Y_AXIS));
+        painel.setBackground(new Color(60, 60, 60));
+        painel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JLabel labelMenuTitulo = new JLabel("VEÍCULOS", SwingConstants.CENTER);
+        labelMenuTitulo.setFont(new Font("Arial", Font.BOLD, 14));
+        labelMenuTitulo.setForeground(Color.WHITE);
+        labelMenuTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
+        labelMenuTitulo.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
+        painel.add(labelMenuTitulo);
+
+        String[] opcoes = {"Cadastrar Veículo"};
+        for (String opcao : opcoes) {
+            JButton botao = new JButton("<html><div style='text-align: left;'>" + opcao + " ></div></html>");
+            botao.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
+            botao.setFont(new Font("Arial", Font.PLAIN, 12));
+            botao.setAlignmentX(Component.CENTER_ALIGNMENT);
+            botao.setFocusPainted(false);
+            botao.setBackground(new Color(90, 90, 90));
+            botao.setForeground(Color.WHITE);
+            botao.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            botao.setHorizontalAlignment(SwingConstants.LEFT);
+            botao.addActionListener(e -> {
+                trocarConteudo(new TelaGestaoVeiculos(opcao));
+            });
+            painel.add(botao);
+        }
+        
+        painel.add(Box.createVerticalGlue());
+
+        JButton botaoVoltar = new JButton("Voltar");
+        botaoVoltar.setMaximumSize(new Dimension(100, 30));
+        botaoVoltar.setPreferredSize(new Dimension(100, 30));
+        botaoVoltar.setMinimumSize(new Dimension(100, 30));
+        botaoVoltar.setFont(new Font("Arial", Font.BOLD, 12));
+        botaoVoltar.setAlignmentX(Component.CENTER_ALIGNMENT);
+        botaoVoltar.setFocusPainted(false);
+        botaoVoltar.setBackground(new Color(150, 150, 150));
+        botaoVoltar.setForeground(Color.WHITE);
+        botaoVoltar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        botaoVoltar.addActionListener(e -> {
+            trocarMenu(criarPainelMenuPrincipal());
+            trocarConteudo(criarTelaBemVindo());
+        });
+        painel.add(Box.createVerticalStrut(10)); 
+        painel.add(botaoVoltar);
+        painel.add(Box.createVerticalStrut(10)); 
+
+        return painel;
+    }
+
     //funct p CRIAR um PANEL da funcionalidad de RELATORIOS
     private JPanel criarPainelMenuRelatorios() {
         JPanel painel = new JPanel();
         painel.setLayout(new BoxLayout(painel, BoxLayout.Y_AXIS));
-        painel.setBackground(new Color(60, 60, 60)); // Cinza escuro
-        
-        painel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));// borda p buttons n colar nos cantos da tela
+        painel.setBackground(new Color(60, 60, 60));
+        painel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         JLabel labelMenuTitulo = new JLabel("RELATÓRIOS", SwingConstants.CENTER);
         labelMenuTitulo.setFont(new Font("Arial", Font.BOLD, 14));
@@ -142,7 +198,6 @@ public class TelaAdministrador extends JFrame {
         painel.add(Box.createVerticalGlue());
 
         JButton botaoVoltar = new JButton("Voltar");
-        
         botaoVoltar.setMaximumSize(new Dimension(100, 30));
         botaoVoltar.setPreferredSize(new Dimension(100, 30));
         botaoVoltar.setMinimumSize(new Dimension(100, 30));

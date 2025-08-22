@@ -6,7 +6,7 @@
 
 ## Requisitos para Tela de Login
 
-#### RF02 - Autenticação com Email ou CPF e Senha
+#### RF02 - Autenticação com nome de Usuário e Senha
 O usuário deve poder se autenticar no sistema utilizando seu CPF com a sua senha, ou seu email também com a sua senha.
 
 #### RF03 - Identificação de Nível de Acesso do Usuário
@@ -27,8 +27,6 @@ O administrador deve poder fazer login com qualquer nível de usuário (Administ
 #### RF08 - O sistema deve permitir que o administrador exclua funcionários, com exceção de outro administrador.
 
 #### RF09 - O sistema deve permitir que o administrador visualize os salários de todos os funcionários.
-
-#### RF10 - O sistema deve permitir que o administrador edite os valores e taxas para empréstimo de cada veículo.
 
 #### RF11 - O sistema deve permitir que o administrador visualize o relatório geral mensal/anual da empresa.
 

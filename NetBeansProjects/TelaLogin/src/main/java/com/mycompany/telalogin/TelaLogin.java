@@ -29,7 +29,7 @@ public class TelaLogin extends JFrame {
         labelAVJ.setBounds(175, 80, 50, 25);
         add(labelAVJ);
 
-        JLabel labelUsuario = new JLabel("Login (email ou CPF):");
+        JLabel labelUsuario = new JLabel("Login:");
         labelUsuario.setFont(new Font("Arial", Font.BOLD, 14));
         labelUsuario.setBounds(50, 120, 200, 20);
         add(labelUsuario);
