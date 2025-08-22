@@ -38,6 +38,9 @@ Apresenta uma visão geral do projeto, incluindo seus objetivos, funcionalidades
 ### Diagrama de Atividades
 Representa o fluxo de atividades dentro do sistema, mostrando como os usuários interagem com o sistema em diferentes situações. Esse diagrama ajuda a visualizar o comportamento do sistema e a lógica de execução de processos, sendo essencial para entender o funcionamento passo a passo.
 
+### Diagrama de Casos de Uso
+Identifica e descreve as interações entre os usuários (atores) e o sistema, representando as funcionalidades (casos de uso) que serão disponibilizadas. Este diagrama é fundamental para delimitar o escopo do projeto, facilitar a comunicação com os stakeholders e servir como base para a criação de testes de aceitação.
+
 ### Levantamento e Análise de Requisitos
 Reúne todas as informações coletadas junto aos usuários e stakeholders sobre o que o sistema deve fazer. Essa etapa é essencial para garantir que o software atenda às necessidades reais do negócio.
 Nesta seção, os requisitos são divididos em três categorias principais:
