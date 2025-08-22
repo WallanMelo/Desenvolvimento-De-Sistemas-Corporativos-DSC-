@@ -3,6 +3,9 @@ A documentação de um projeto é um conjunto organizado de informações que de
 
 Documentar é essencial para facilitar a compreensão do funcionamento do sistema, registrar decisões técnicas, detalhar requisitos, orientar a manutenção e permitir futuras expansões. Uma boa documentação também torna o projeto mais profissional e transparente, especialmente em ambientes colaborativos como o GitHub.
 
+#### Link de Acesso via Google Docs
+https://docs.google.com/document/d/1AAyeyIaTDwlnEnzhNrtH19Lk8js1uavaD2On8qInZLk/edit?usp=sharing
+
 # Estrutura Geral da Documentação
 A documentação pode variar de acordo com o tipo e a complexidade do projeto, mas geralmente inclui os seguintes tópicos:
 
