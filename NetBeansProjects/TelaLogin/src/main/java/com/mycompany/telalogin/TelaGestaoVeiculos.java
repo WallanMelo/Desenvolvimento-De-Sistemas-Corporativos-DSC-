@@ -36,148 +36,155 @@ public class TelaGestaoVeiculos extends JPanel {
     }
 
     private void setupTelaCadastro() {
-        // Painel de busca (mantém igual)
-        JPanel painelBuscaSuperior = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
-        painelBuscaSuperior.setBorder(BorderFactory.createTitledBorder("Buscar Veículo"));
-        painelBuscaSuperior.setBackground(new Color(160, 160, 160));
+    // Painel de busca
+    JPanel painelBuscaSuperior = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+    painelBuscaSuperior.setBorder(BorderFactory.createTitledBorder("Buscar Veículo"));
+    painelBuscaSuperior.setBackground(new Color(160, 160, 160));
 
-        campoBusca = new JTextField(25);
-        botaoBuscar = new JButton("Buscar");
-        botaoBuscar.setPreferredSize(new Dimension(100, 30));
+    campoBusca = new JTextField(25);
+    botaoBuscar = new JButton("Buscar");
+    botaoBuscar.setPreferredSize(new Dimension(100, 30));
 
-        painelBuscaSuperior.add(new JLabel("Modelo, Placa ou Fabricante:"));
-        painelBuscaSuperior.add(campoBusca);
-        painelBuscaSuperior.add(botaoBuscar);
+    painelBuscaSuperior.add(new JLabel("Modelo, Placa ou Fabricante:"));
+    painelBuscaSuperior.add(campoBusca);
+    painelBuscaSuperior.add(botaoBuscar);
 
-        add(painelBuscaSuperior, BorderLayout.NORTH);
+    add(painelBuscaSuperior, BorderLayout.NORTH);
 
-        // Cria o JSplitPane para divisão vertical
-        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-        splitPane.setDividerSize(8); // Tamanho do divisor
-        splitPane.setOneTouchExpandable(true); // Botões de expandir/contrair
-        splitPane.setResizeWeight(0.7); // 70% para o painel superior, 30% para o inferior
+    JPanel painelPrincipal = new JPanel(new BorderLayout(10, 10));
+    painelPrincipal.setBackground(new Color(160, 160, 160));
 
-        // Painel superior (formulário e botões)
-        JPanel painelSuperior = new JPanel(new BorderLayout(10, 10));
-        painelSuperior.setBackground(new Color(160, 160, 160));
+    // Formulario
+    JPanel painelForm = new JPanel(new GridBagLayout());
+    painelForm.setBorder(BorderFactory.createTitledBorder("Dados do Veiculo"));
+    painelForm.setBackground(new Color(160, 160, 160));
 
-        // Formulário (mantém igual)
-        JPanel painelForm = new JPanel(new GridBagLayout());
-        painelForm.setBorder(BorderFactory.createTitledBorder("Dados do Veiculo"));
-        painelForm.setBackground(new Color(160, 160, 160));
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.insets = new Insets(8, 8, 8, 8);
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    gbc.anchor = GridBagConstraints.WEST;
 
-        // ... (código do formulário mantido igual)
+    campoModelo = new JTextField(20);
+    campoFabricante = new JTextField(20);
+    campoTipo = new JTextField(20);
+    campoAno = new JTextField(6);
+    campoPlaca = new JTextField(10);
+    campoEstado = new JTextField(20);
+    campoCor = new JTextField(15);
+    campoCaracteristicas = new JTextArea(4, 25);
 
-        painelSuperior.add(painelForm, BorderLayout.NORTH);
+    Font fontCampos = new Font("Arial", Font.PLAIN, 14);
+    campoModelo.setFont(fontCampos);
+    campoFabricante.setFont(fontCampos);
+    campoTipo.setFont(fontCampos);
+    campoAno.setFont(fontCampos);
+    campoPlaca.setFont(fontCampos);
+    campoEstado.setFont(fontCampos);
+    campoCor.setFont(fontCampos);
+    campoCaracteristicas.setFont(fontCampos);
 
-        // Painel de botões (mantém igual)
-        JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 15));
-        painelBotoes.setBackground(new Color(160, 160, 160));
-        painelBotoes.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+    adicionarCampoForm(painelForm, gbc, "Modelo:*", campoModelo, 0);
+    adicionarCampoForm(painelForm, gbc, "Fabricante:", campoFabricante, 1);
+    adicionarCampoForm(painelForm, gbc, "Tipo:", campoTipo, 2);
+    adicionarCampoForm(painelForm, gbc, "Ano:*", campoAno, 3);
+    adicionarCampoForm(painelForm, gbc, "Placa:*", campoPlaca, 4);
+    adicionarCampoForm(painelForm, gbc, "Estado Conservação:", campoEstado, 5);
+    adicionarCampoForm(painelForm, gbc, "Cor:", campoCor, 6);
 
-        botaoCadastrar = criarBotaoGrande("Cadastrar", new Color(40, 167, 69));
-        botaoAtualizar = criarBotaoGrande("Atualizar", new Color(255, 193, 7));
-        botaoExcluir = criarBotaoGrande("Excluir", new Color(220, 53, 69));
-        botaoLimpar = criarBotaoGrande("Limpar", new Color(108, 117, 125));
+    gbc.gridx = 0;
+    gbc.gridy = 7;
+    gbc.gridwidth = 1;
+    JLabel labelCaracteristicas = new JLabel("Características:");
+    labelCaracteristicas.setFont(new Font("Arial", Font.BOLD, 14));
+    painelForm.add(labelCaracteristicas, gbc);
 
-        painelBotoes.add(botaoCadastrar);
-        painelBotoes.add(botaoAtualizar);
-        painelBotoes.add(botaoExcluir);
-        painelBotoes.add(botaoLimpar);
+    gbc.gridx = 1;
+    gbc.gridwidth = 2;
+    gbc.fill = GridBagConstraints.BOTH;
+    gbc.weightx = 1.0;
+    gbc.weighty = 1.0;
+    JScrollPane scrollCaracteristicas = new JScrollPane(campoCaracteristicas);
+    scrollCaracteristicas.setPreferredSize(new Dimension(300, 80));
+    painelForm.add(scrollCaracteristicas, gbc);
 
-        painelSuperior.add(painelBotoes, BorderLayout.CENTER);
+    painelPrincipal.add(painelForm, BorderLayout.NORTH);
 
-        // Painel inferior (tabela)
-        JPanel painelInferior = new JPanel(new BorderLayout(10, 10));
-        painelInferior.setBackground(new Color(160, 160, 160));
+    JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 15));
+    painelBotoes.setBackground(new Color(160, 160, 160));
+    painelBotoes.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
 
-        // Cabeçalho da tabela com botão de minimizar
-        JPanel cabecalhoTabela = new JPanel(new BorderLayout());
-        cabecalhoTabela.setBackground(new Color(160, 160, 160));
+    botaoCadastrar = criarBotaoGrande("Cadastrar", new Color(40, 167, 69));
+    botaoAtualizar = criarBotaoGrande("Atualizar", new Color(255, 193, 7));
+    botaoExcluir = criarBotaoGrande("Excluir", new Color(220, 53, 69));
+    botaoLimpar = criarBotaoGrande("Limpar", new Color(108, 117, 125));
 
-        JLabel tituloTabela = new JLabel("VEÍCULOS CADASTRADOS", SwingConstants.CENTER);
-        tituloTabela.setFont(new Font("Arial", Font.BOLD, 16));
-        tituloTabela.setForeground(Color.BLACK);
+    painelBotoes.add(botaoCadastrar);
+    painelBotoes.add(botaoAtualizar);
+    painelBotoes.add(botaoExcluir);
+    painelBotoes.add(botaoLimpar);
 
-        // Botão para minimizar/maximizar
-        JButton botaoMinimizar = new JButton("▼");
-        botaoMinimizar.setFont(new Font("Arial", Font.BOLD, 12));
-        botaoMinimizar.setPreferredSize(new Dimension(30, 25));
-        botaoMinimizar.setMargin(new Insets(0, 0, 0, 0));
-        botaoMinimizar.addActionListener(e -> {
-            if (splitPane.getDividerLocation() > splitPane.getHeight() - 50) {
-                // Restaurar tamanho normal
-                splitPane.setDividerLocation((int)(splitPane.getHeight() * 0.7));
-                botaoMinimizar.setText("▼");
-            } else {
-                // Minimizar
-                splitPane.setDividerLocation(splitPane.getHeight() - 30);
-                botaoMinimizar.setText("▲");
+    painelPrincipal.add(painelBotoes, BorderLayout.CENTER);
+
+    add(painelPrincipal, BorderLayout.CENTER);
+
+    // Tabela
+    JPanel painelTabela = new JPanel(new BorderLayout(10, 10));
+    painelTabela.setBackground(new Color(160, 160, 160));
+    painelTabela.setPreferredSize(new Dimension(1000, 300));
+
+    JLabel tituloTabela = new JLabel("VEÍCULOS CADASTRADOS", SwingConstants.CENTER);
+    tituloTabela.setFont(new Font("Arial", Font.BOLD, 16));
+    tituloTabela.setForeground(Color.BLACK);
+    tituloTabela.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+    painelTabela.add(tituloTabela, BorderLayout.NORTH);
+
+    modeloTabela = new DefaultTableModel();
+    tabela = new JTable(modeloTabela);
+    tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    tabela.setFont(new Font("Arial", Font.PLAIN, 12));
+    tabela.getTableHeader().setFont(new Font("Arial", Font.BOLD, 12));
+    tabela.setRowHeight(25);
+
+    JScrollPane scrollTabela = new JScrollPane(tabela);
+    scrollTabela.setPreferredSize(new Dimension(1000, 200));
+
+    modeloTabela.addColumn("ID");
+    modeloTabela.addColumn("Modelo");
+    modeloTabela.addColumn("Fabricante");
+    modeloTabela.addColumn("Tipo");
+    modeloTabela.addColumn("Ano");
+    modeloTabela.addColumn("Placa");
+    modeloTabela.addColumn("Estado");
+    modeloTabela.addColumn("Cor");
+    modeloTabela.addColumn("Status");
+
+    painelTabela.add(scrollTabela, BorderLayout.CENTER);
+    add(painelTabela, BorderLayout.SOUTH);
+
+    // Listeners
+    botaoCadastrar.addActionListener(e -> cadastrarVeiculo());
+    botaoAtualizar.addActionListener(e -> atualizarVeiculo());
+    botaoExcluir.addActionListener(e -> excluirVeiculo());
+    botaoLimpar.addActionListener(e -> limparCampos());
+    botaoBuscar.addActionListener(e -> buscarVeiculos());
+
+    tabela.addMouseListener(new MouseAdapter() {
+        public void mouseClicked(MouseEvent e) {
+            int linha = tabela.getSelectedRow();
+            if (linha >= 0) {
+                veiculoSelecionadoId = Integer.parseInt(modeloTabela.getValueAt(linha, 0).toString());
+                campoModelo.setText(modeloTabela.getValueAt(linha, 1).toString());
+                campoFabricante.setText(modeloTabela.getValueAt(linha, 2).toString());
+                campoTipo.setText(modeloTabela.getValueAt(linha, 3).toString());
+                campoAno.setText(modeloTabela.getValueAt(linha, 4).toString());
+                campoPlaca.setText(modeloTabela.getValueAt(linha, 5).toString());
+                campoEstado.setText(modeloTabela.getValueAt(linha, 6).toString());
+                campoCor.setText(modeloTabela.getValueAt(linha, 7).toString());
+
+                carregarCaracteristicasVeiculo(veiculoSelecionadoId);
             }
-        });
-
-        cabecalhoTabela.add(tituloTabela, BorderLayout.CENTER);
-        cabecalhoTabela.add(botaoMinimizar, BorderLayout.EAST);
-        cabecalhoTabela.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 5));
-
-        painelInferior.add(cabecalhoTabela, BorderLayout.NORTH);
-
-        // Tabela (mantém igual)
-        modeloTabela = new DefaultTableModel();
-        tabela = new JTable(modeloTabela);
-        tabela.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tabela.setFont(new Font("Arial", Font.PLAIN, 12));
-        tabela.getTableHeader().setFont(new Font("Arial", Font.BOLD, 12));
-        tabela.setRowHeight(25);
-
-        JScrollPane scrollTabela = new JScrollPane(tabela);
-        scrollTabela.setPreferredSize(new Dimension(1000, 200));
-
-        modeloTabela.addColumn("ID");
-        modeloTabela.addColumn("Modelo");
-        modeloTabela.addColumn("Fabricante");
-        modeloTabela.addColumn("Tipo");
-        modeloTabela.addColumn("Ano");
-        modeloTabela.addColumn("Placa");
-        modeloTabela.addColumn("Estado");
-        modeloTabela.addColumn("Cor");
-        modeloTabela.addColumn("Status");
-
-        painelInferior.add(scrollTabela, BorderLayout.CENTER);
-
-        // Configura o split pane
-        splitPane.setTopComponent(painelSuperior);
-        splitPane.setBottomComponent(painelInferior);
-
-        // Define a posição inicial do divisor (70% para cima, 30% para baixo)
-        splitPane.setDividerLocation(0.7);
-
-        add(splitPane, BorderLayout.CENTER);
-
-        // Listeners (mantém igual)
-        botaoCadastrar.addActionListener(e -> cadastrarVeiculo());
-        botaoAtualizar.addActionListener(e -> atualizarVeiculo());
-        botaoExcluir.addActionListener(e -> excluirVeiculo());
-        botaoLimpar.addActionListener(e -> limparCampos());
-        botaoBuscar.addActionListener(e -> buscarVeiculos());
-
-        tabela.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                int linha = tabela.getSelectedRow();
-                if (linha >= 0) {
-                    veiculoSelecionadoId = Integer.parseInt(modeloTabela.getValueAt(linha, 0).toString());
-                    campoModelo.setText(modeloTabela.getValueAt(linha, 1).toString());
-                    campoFabricante.setText(modeloTabela.getValueAt(linha, 2).toString());
-                    campoTipo.setText(modeloTabela.getValueAt(linha, 3).toString());
-                    campoAno.setText(modeloTabela.getValueAt(linha, 4).toString());
-                    campoPlaca.setText(modeloTabela.getValueAt(linha, 5).toString());
-                    campoEstado.setText(modeloTabela.getValueAt(linha, 6).toString());
-                    campoCor.setText(modeloTabela.getValueAt(linha, 7).toString());
-
-                    carregarCaracteristicasVeiculo(veiculoSelecionadoId);
-                }
-            }
-        });
+        }
+    });
 
     carregarVeiculos();
 }
